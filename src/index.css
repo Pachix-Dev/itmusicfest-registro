@@ -92,6 +92,10 @@ button:hover {
   font-weight: 600;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .bg-color-secondary {
   background-color: var(--color-purplish-blue);
   border: 1px solid var(--color-purplish-blue);

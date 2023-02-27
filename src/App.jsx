@@ -599,7 +599,7 @@ function Step5Form() {
 /**
  * Given a step, will render the proper StepForm
  * @param {} step : number
- * @returns StepForm function that returns a JSX.Element component)
+ * @returns StepForm function that returns a JSX.Element component
  */
 function getStepform(step = 1) {
   switch (step) {
