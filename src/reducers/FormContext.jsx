@@ -16,6 +16,7 @@ export function useFormDispatch() {
 // actions stored in ENUM for future action support
 export const REDUCER_ACTIONS = {
   UPDATE_INPUT: "UPDATE_INPUT",
+  SET_ERROR: "SET_ERROR",
 };
 
 const initialFormState = {
@@ -27,6 +28,11 @@ const initialFormState = {
   add_on_multiplayer: false,
   add_on_storage: false,
   add_on_profile: false,
+  errors: {
+    name: undefined,
+    email: undefined,
+    phone: undefined,
+  }
 };
 
 /**
@@ -55,6 +61,14 @@ const formReducer = (state, action) => {
       return {
         ...state,
         [action.field]: action.payload,
+      };
+    case REDUCER_ACTIONS.SET_ERROR:
+      return {
+        ...state,
+        errors: {
+          ...state.errors,
+          ...action.payload,
+        }        
       };
     default:
       return state;

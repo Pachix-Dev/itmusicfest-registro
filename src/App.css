@@ -54,6 +54,12 @@ input {
   background-color: inherit;
   border: 1px solid var(--color-light-gray);
   color: black;
+  transition: all .5s ease;
+}
+
+input:hover {
+  cursor: pointer;
+  border-color: var(--color-purplish-blue);
 }
 
 .back-button {
@@ -260,6 +266,12 @@ input:checked + .slider:before {
 
 /* Utility  */
 
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+}
+
 .column-align-center {
   display: flex;
   flex-direction: column;
@@ -280,4 +292,16 @@ input:checked + .slider:before {
 
 .gap-1 {
   gap: 1rem;
+}
+
+.border-red {
+  border: 1px solid var(--color-strawberry-red);
+}
+
+.text-red {
+  color: var(--color-strawberry-red)
+}
+
+.font-weight-500 {
+  font-weight: 500;
 }

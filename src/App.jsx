@@ -29,6 +29,21 @@ function StepsSidebar({ activeStep = 1 }) {
   );
 }
 
+
+/**
+ * Input with label, error 
+ * @param {*} param0 
+ * @returns 
+ */
+const Input = ({label, error, ...args}) => {
+  return (
+    <>
+      <label className="flex-between">{label}{error && <span className="text-red font-weight-500">{error}</span>}</label>
+      <input className={error ? "border-red" : ""} {...args}/>
+    </>
+  )  
+}
+
 function Step1Form() {
   const formState = useForm();
   const dispatch = useFormDispatch();
@@ -47,24 +62,27 @@ function Step1Form() {
       <p className="form-container-description">
         Please provide your name, email, address, and phone number
       </p>
-      <label>Name</label>
-      <input
+      <Input
+        label="Name"
+        error={formState.errors.name}
         type="text"
         name="name"
         placeholder="e.g. Stephen King"
         onChange={(e) => handleTextChange(e)}
         value={formState.name}
       />
-      <label>Email Address</label>
-      <input
+      <Input
+        label="Email Address"
+        error={formState.errors.email}
         type="email"
         name="email"
         placeholder="e.g. stephenking@lorem.com"
         onChange={(e) => handleTextChange(e)}
         value={formState.email}
       />
-      <label>Phone Number</label>
-      <input
+      <Input
+        label="Phone Number"
+        error={formState.errors.phone}
         type="tel"
         name="phone"
         placeholder="e.g. +1234567890"
@@ -474,7 +492,6 @@ const formatPlanCostSummary = (formState) => {
 const getAddOnCost = (addOnEnum, isYearly) => {
   const { cost } = ADD_ONS[addOnEnum];
   const perCost = isYearly ? cost.yearly : cost.monthly;
-  console.log({ addOnEnum, isYearly, ADD_ONS, cost, perCost });
   return perCost;
 };
 
@@ -484,7 +501,6 @@ const getAddOnCost = (addOnEnum, isYearly) => {
  * @returns {JSX.Element}
  */
 function AddOnRow({ addOnEnum, isYearly }) {
-  console.log({ addOnEnum, isYearly, ADD_ONS });
   const { title } = ADD_ONS[addOnEnum];
   const addOnCost = getAddOnCost(addOnEnum, isYearly);
   const costString = formatCost(addOnCost, isYearly, true);
@@ -638,7 +654,7 @@ function SubmitButton({ stepNo, onNextStep, onBackStep, onValidate }) {
     <>
       <button
         className={stepNo === 4 ? "bg-color-secondary" : undefined}
-        type="button"
+        type="submit"
         onClick={onNextStep}
       >
         {stepNo < 4 ? "Next Step" : "Confirm"}
@@ -652,6 +668,44 @@ function SubmitButton({ stepNo, onNextStep, onBackStep, onValidate }) {
   );
 }
 
+// As per the HTML Specification
+const emailRegExp =
+  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+const defaultError = "This field is required";
+/**
+ * todo: MOVE Validation to seprate folder
+ * 
+ * 
+ * @param {*} formState 
+ * @returns 
+ */
+const onValidateStep1 = (formState) => {
+  const {name, email, phone} = formState
+  // default: empty strings
+  const errors = {
+    name: "",
+    email: "",
+    phone: "",
+  }
+
+  if (name.length === 0) {
+    errors.name = defaultError;
+  }
+
+  if (email.length === 0) {
+    errors.email = defaultError;
+  } else if (!emailRegExp.test(email)) {
+    errors.email = "Must enter a valid email"            
+  }
+
+  if (phone.length === 0) {
+    errors.phone = defaultError;
+  }
+
+  const hasError = !!errors.name || !!errors.email || !!errors.phone
+  return {errors, hasError}
+}
+
 /**
  * Top level App component includes the Form Provider which includes form dispatch and formState in FormContext
  * @returns
@@ -659,16 +713,38 @@ function SubmitButton({ stepNo, onNextStep, onBackStep, onValidate }) {
 function App() {
   const [stepNo, setStepNo] = useState(1);
   const StepForm = getStepform(stepNo);
+  const formState = useForm();
+  const dispatch = useFormDispatch();
+
+  const onValidate = () => {    
+    switch(stepNo) {
+      case 1: 
+        return onValidateStep1(formState);
+      default:
+        return ({errors: {}, hasError: false});
+    }
+  }
+
+  const updateError = (errors) => {
+    dispatch({
+      type: REDUCER_ACTIONS.SET_ERROR,
+      payload: errors,
+    });
+  };
 
   const onNextStep = () => {
-    setStepNo(Math.min(stepNo + 1, 5));
+    const {errors, hasError} = onValidate()
+    updateError(errors); // will update or clear errors
+    if (!hasError) {
+      setStepNo(Math.min(stepNo + 1, 5));
+    }
   };
+
   const onBackStep = () => {
     setStepNo(Math.max(stepNo - 1, 1));
   };
 
   return (
-    <FormProvider>
       <div className="App">
         <StepsSidebar activeStep={Math.min(stepNo, 4)} />
         <StepForm setStepNo={setStepNo} />
@@ -682,8 +758,15 @@ function App() {
           </footer>
         )}
       </div>
-    </FormProvider>
   );
 }
 
-export default App;
+function AppContainer () {
+  return (
+    <FormProvider>
+      <App/>
+    </FormProvider>
+  )
+}
+
+export default AppContainer;
