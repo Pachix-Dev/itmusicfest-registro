@@ -32,7 +32,8 @@ const initialFormState = {
     name: undefined,
     email: undefined,
     phone: undefined,
-  }
+    plan_id: undefined,
+  },
 };
 
 /**
@@ -68,7 +69,7 @@ const formReducer = (state, action) => {
         errors: {
           ...state.errors,
           ...action.payload,
-        }        
+        },
       };
     default:
       return state;

@@ -29,20 +29,22 @@ function StepsSidebar({ activeStep = 1 }) {
   );
 }
 
-
 /**
- * Input with label, error 
- * @param {*} param0 
- * @returns 
+ * Input with label, error
+ * @param {*} param0
+ * @returns
  */
-const Input = ({label, error, ...args}) => {
+const Input = ({ label, error, ...args }) => {
   return (
     <>
-      <label className="flex-between">{label}{error && <span className="text-red font-weight-500">{error}</span>}</label>
-      <input className={error ? "border-red" : ""} {...args}/>
+      <label className="flex-between">
+        {label}
+        {error && <span className="text-red font-weight-500">{error}</span>}
+      </label>
+      <input className={error ? "border-red" : ""} {...args} />
     </>
-  )  
-}
+  );
+};
 
 function Step1Form() {
   const formState = useForm();
@@ -59,7 +61,7 @@ function Step1Form() {
   return (
     <div className="form-container">
       <h2>Personal info</h2>
-      <p className="form-container-description">
+      <p className="mb-1">
         Please provide your name, email, address, and phone number
       </p>
       <Input
@@ -230,9 +232,16 @@ function Step2Form() {
   return (
     <div className="form-container">
       <h2>Select your plan</h2>
-      <p className="form-container-description">
-        You have the option of monthly or yearly billing.
+      <p>You have the option of monthly or yearly billing.</p>
+      <p className="min-height-1 mb-1">
+        {formState.errors.plan_id && (
+          <span className="text-red font-weight-500">
+            {formState.errors.plan_id}
+          </span>
+        )}
       </p>
+
+      {/* {formState.errors.plan_id && <p  className="mb-1 text-red font-weight-500">You must make a selection.</p>} */}
       <div id="select-plan-id">
         <RadioButton
           checked={formState.plan_id === PLAN.arcade.value}
@@ -368,9 +377,7 @@ function Step3Form() {
   return (
     <div className="form-container">
       <h2>Pick add-ons</h2>
-      <p className="form-container-description">
-        Add-ons help enhance your gaming experience
-      </p>
+      <p className="mb-1">Add-ons help enhance your gaming experience</p>
       <div id="select-add-ons">
         <CheckmarkButton
           name="add_on_multiplayer"
@@ -562,9 +569,7 @@ function Step4Form({ setStepNo }) {
   return (
     <div className="form-container">
       <h2>Finishing up</h2>
-      <p className="form-container-description">
-        Double-check everything looks OK before confirming
-      </p>
+      <p className="mb-1">Double-check everything looks OK before confirming</p>
       <div className="summary">
         <div className="summary-row border-b">
           <div>
@@ -603,7 +608,7 @@ function Step5Form() {
     <div className="form-container column-flex-center gap-1">
       <img className="thank-you-logo" src={thankyouLogo} alt="thank you logo" />
       <h2 className="text-center">Thank you</h2>
-      <p className="form-container-description text-center">
+      <p className="mb-1 text-center">
         Thanks for confirming your subscription! We hope you have fun using our
         platform. If you ever need support, please feel free to email us at
         support@loremgaming.com
@@ -637,7 +642,7 @@ function getStepform(step = 1) {
 // todo Form validator
 // const useFormValidate = (stepNo, formState) => {
 //   switch (stepNo) {
-//     case 1: 
+//     case 1:
 //       ["name", "email", "phone"].map(field => {
 //         formState[field]
 //       })
@@ -645,9 +650,9 @@ function getStepform(step = 1) {
 // };
 
 /**
- * Renders the form submit and back button based on step number. 
- * @param {*} param0 
- * @returns 
+ * Renders the form submit and back button based on step number.
+ * @param {*} param0
+ * @returns
  */
 function SubmitButton({ stepNo, onNextStep, onBackStep, onValidate }) {
   return (
@@ -674,19 +679,19 @@ const emailRegExp =
 const defaultError = "This field is required";
 /**
  * todo: MOVE Validation to seprate folder
- * 
- * 
- * @param {*} formState 
- * @returns 
+ *
+ *
+ * @param {*} formState
+ * @returns
  */
 const onValidateStep1 = (formState) => {
-  const {name, email, phone} = formState
+  const { name, email, phone } = formState;
   // default: empty strings
   const errors = {
     name: "",
     email: "",
     phone: "",
-  }
+  };
 
   if (name.length === 0) {
     errors.name = defaultError;
@@ -695,16 +700,30 @@ const onValidateStep1 = (formState) => {
   if (email.length === 0) {
     errors.email = defaultError;
   } else if (!emailRegExp.test(email)) {
-    errors.email = "Must enter a valid email"            
+    errors.email = "Must enter a valid email";
   }
 
   if (phone.length === 0) {
     errors.phone = defaultError;
   }
 
-  const hasError = !!errors.name || !!errors.email || !!errors.phone
-  return {errors, hasError}
-}
+  const hasError = !!errors.name || !!errors.email || !!errors.phone;
+  return { errors, hasError };
+};
+
+const onValidateStep2 = (formState) => {
+  const { plan_id } = formState;
+  const errors = {
+    plan_id: undefined,
+  };
+
+  if (plan_id == undefined) {
+    errors.plan_id = "You must select an option.";
+  }
+
+  const hasError = !!errors.plan_id;
+  return { errors, hasError };
+};
 
 /**
  * Top level App component includes the Form Provider which includes form dispatch and formState in FormContext
@@ -716,14 +735,16 @@ function App() {
   const formState = useForm();
   const dispatch = useFormDispatch();
 
-  const onValidate = () => {    
-    switch(stepNo) {
-      case 1: 
+  const onValidate = () => {
+    switch (stepNo) {
+      case 1:
         return onValidateStep1(formState);
+      case 2:
+        return onValidateStep2(formState);
       default:
-        return ({errors: {}, hasError: false});
+        return { errors: {}, hasError: false };
     }
-  }
+  };
 
   const updateError = (errors) => {
     dispatch({
@@ -733,7 +754,7 @@ function App() {
   };
 
   const onNextStep = () => {
-    const {errors, hasError} = onValidate()
+    const { errors, hasError } = onValidate();
     updateError(errors); // will update or clear errors
     if (!hasError) {
       setStepNo(Math.min(stepNo + 1, 5));
@@ -745,28 +766,28 @@ function App() {
   };
 
   return (
-      <div className="App">
-        <StepsSidebar activeStep={Math.min(stepNo, 4)} />
-        <StepForm setStepNo={setStepNo} />
-        {stepNo <= 4 && (
-          <footer>
-            <SubmitButton
-              stepNo={stepNo}
-              onNextStep={onNextStep}
-              onBackStep={onBackStep}
-            />
-          </footer>
-        )}
-      </div>
+    <div className="App">
+      <StepsSidebar activeStep={Math.min(stepNo, 4)} />
+      <StepForm setStepNo={setStepNo} />
+      {stepNo <= 4 && (
+        <footer>
+          <SubmitButton
+            stepNo={stepNo}
+            onNextStep={onNextStep}
+            onBackStep={onBackStep}
+          />
+        </footer>
+      )}
+    </div>
   );
 }
 
-function AppContainer () {
+function AppContainer() {
   return (
     <FormProvider>
-      <App/>
+      <App />
     </FormProvider>
-  )
+  );
 }
 
 export default AppContainer;
