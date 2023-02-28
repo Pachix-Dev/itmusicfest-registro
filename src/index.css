@@ -80,6 +80,8 @@ button:hover {
 }
 
 /* UTILITY CLASSES */
+
+/* TEXT COLOR */
 .text-primary {
   color: var(--color-marine-blue);
 }
@@ -88,7 +90,17 @@ button:hover {
   color: var(--color-purplish-blue);
 }
 
-.text-bold-600 {
+.text-red {
+  color: var(--color-strawberry-red);
+}
+
+/* FONT WEIGHT */
+/* based off tailwind https://tailwindcss.com/docs/font-weight */
+.font-medium {
+  font-weight: 500;
+}
+
+.font-semibold {
   font-weight: 600;
 }
 
@@ -96,7 +108,45 @@ button:hover {
   text-align: center;
 }
 
+/* Background Colors */
 .bg-color-secondary {
   background-color: var(--color-purplish-blue);
   border: 1px solid var(--color-purplish-blue);
+}
+
+/* LAYOUT */
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.column-align-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.p-1 {
+  padding: 1rem;
+}
+
+.mb-1 {
+  margin-bottom: 1rem;
+}
+
+.gap-1 {
+  gap: 1rem;
+}
+
+.min-height-1 {
+  min-height: 1rem;
+}
+
+/* BORDERS */
+.border-b {
+  border-bottom: 1px solid var(--color-light-gray);
+}
+
+.border-red {
+  border: 1px solid var(--color-strawberry-red);
 }
