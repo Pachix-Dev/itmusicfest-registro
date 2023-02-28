@@ -10,6 +10,7 @@ import {
 } from "./components/form/utility";
 import { StepsSidebar } from "./components/form/StepsSidebar";
 import { Step1Form } from "./components/form/Step1Form";
+import { Step2Form } from "./components/form/Step2Form";
 import { Step5Form } from "./components/form/Step5Form";
 import {
   onValidateStep1,
@@ -17,173 +18,12 @@ import {
 } from "./components/form/validateForm";
 import checkmark from "./assets/images/icon-checkmark.svg";
 
-
 import {
   FormProvider,
   REDUCER_ACTIONS,
   useForm,
   useFormDispatch,
 } from "./reducers/FormContext";
-
-/**
- * This styled radio button includes a button feel with borders, hover effects, logo, description
- * and conditional description based on whether isYearly is passed in.
- *
- * Would need to refactor if isYearly conditional changes.
- *
- * Radio html element chosen to allow user to only select one item.
- *
- * @param {*} param0
- * @returns
- */
-function RadioButton({
-  checked,
-  title,
-  description,
-  name,
-  value,
-  logoSrc = arcadeLogo,
-  isYearly,
-  onChange,
-}) {
-  return (
-    <label>
-      <input
-        type="radio"
-        name={name}
-        value={value}
-        checked={checked}
-        onChange={(e) => onChange(e)}
-      />
-      <div className="radio-button-container">
-        <img className="img-logo" src={logoSrc} alt={`${title} logo`} />
-        <div className="radio-text-container">
-          <h4 className="radio-title">{title}</h4>
-          <p className="radio-description">{description}</p>
-          {isYearly && <p className="radio-description-2">2 months free</p>}
-        </div>
-      </div>
-    </label>
-  );
-}
-
-/**
- * This component is based of the toggle switch from w3schools
- * https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_switch
- *
- * Since the underlying input element is a checkbox, the controlled component
- * needs to know when it is checked and the onChange handler needs to examine
- * e.target.checked on the onChange handler.
- *
- * Since we rely on dispatch actions, we bubble up the event instead of just the
- * checked value
- *
- * @param {*} param0
- * @returns
- */
-function ToggleSwitch({ name, checked, onChange }) {
-  return (
-    <label name={name} className="switch">
-      <input
-        type="checkbox"
-        name={name}
-        checked={checked}
-        onChange={(e) => onChange(e)}
-        // onChange={e => onChange(e.target.checked)}
-      />
-      <span className="slider round"></span>
-    </label>
-  );
-}
-
-function Step2Form() {
-  const formState = useForm();
-  const dispatch = useFormDispatch();
-  const isYearly = formState.isYearly;
-
-  const handleCheckmarkChange = (e) => {
-    dispatch({
-      type: REDUCER_ACTIONS.UPDATE_INPUT,
-      field: e.target.name,
-      payload: e.target.checked,
-    });
-  };
-
-  const handleRadioChange = (e) => {
-    dispatch({
-      type: REDUCER_ACTIONS.UPDATE_INPUT,
-      field: e.target.name,
-      payload: e.target.value,
-    });
-  };
-
-  return (
-    <div className="form-container">
-      <h2>Select your plan</h2>
-      <p>You have the option of monthly or yearly billing.</p>
-      <p className="min-height-1 mb-1">
-        {formState.errors.plan_id && (
-          <span className="text-red font-weight-500">
-            {formState.errors.plan_id}
-          </span>
-        )}
-      </p>
-      <div id="select-plan-id">
-        <RadioButton
-          checked={formState.plan_id === PLAN.arcade.value}
-          title={PLAN.arcade.title}
-          description={
-            isYearly
-              ? formatCost(PLAN.arcade.cost.yearly, isYearly)
-              : formatCost(PLAN.arcade.cost.monthly, isYearly)
-          }
-          logoSrc={PLAN.arcade.logoSrc}
-          value={PLAN.arcade.value}
-          name="plan_id"
-          isYearly={isYearly}
-          onChange={handleRadioChange}
-        />
-        <RadioButton
-          checked={formState.plan_id === PLAN.advanced.value}
-          title={PLAN.advanced.title}
-          description={
-            isYearly
-              ? formatCost(PLAN.advanced.cost.yearly)
-              : formatCost(PLAN.advanced.cost.monthly)
-          }
-          logoSrc={PLAN.advanced.logoSrc}
-          value={PLAN.advanced.value}
-          name="plan_id"
-          isYearly={isYearly}
-          onChange={handleRadioChange}
-        />
-        <RadioButton
-          checked={formState.plan_id === PLAN.pro.value}
-          title={PLAN.pro.title}
-          description={
-            isYearly
-              ? formatCost(PLAN.pro.cost.yearly)
-              : formatCost(PLAN.pro.cost.monthly)
-          }
-          logoSrc={PLAN.pro.logoSrc}
-          value={PLAN.pro.value}
-          name="plan_id"
-          isYearly={isYearly}
-          onChange={handleRadioChange}
-        />
-      </div>
-      <div className="switch-row">
-        <p className="text-primary">Monthly</p>
-        <ToggleSwitch
-          name="isYearly"
-          checked={isYearly}
-          onChange={handleCheckmarkChange}
-        />
-        <p>Yearly</p>
-      </div>
-    </div>
-  );
-}
 
 function CheckmarkButton({
   checked,
@@ -380,7 +220,6 @@ function Step4Form({ setStepNo }) {
 }
 
 
-
 /**
  * Given a step, will render the proper StepForm
  * @param {} step : number
@@ -403,22 +242,12 @@ function getStepform(step = 1) {
   }
 }
 
-// todo Form validator
-// const useFormValidate = (stepNo, formState) => {
-//   switch (stepNo) {
-//     case 1:
-//       ["name", "email", "phone"].map(field => {
-//         formState[field]
-//       })
-//   }
-// };
-
 /**
  * Renders the form submit and back button based on step number.
  * @param {*} param0
  * @returns
  */
-function SubmitButton({ stepNo, onNextStep, onBackStep }) {
+function SubmitButton({ stepNo, onNextStep, onBackStep, onValidate }) {
   return (
     <>
       <button
