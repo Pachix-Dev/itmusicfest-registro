@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import { PLAN, ADD_ONS } from "./constants";
+import { ADD_ONS } from "./constants";
 import {
   formatCost,
   formatPlanCostSummary,
@@ -11,12 +11,12 @@ import {
 import { StepsSidebar } from "./components/form/StepsSidebar";
 import { Step1Form } from "./components/form/Step1Form";
 import { Step2Form } from "./components/form/Step2Form";
+import { Step3Form } from "./components/form/Step3Form";
 import { Step5Form } from "./components/form/Step5Form";
 import {
   onValidateStep1,
   onValidateStep2,
 } from "./components/form/validateForm";
-import checkmark from "./assets/images/icon-checkmark.svg";
 
 import {
   FormProvider,
@@ -24,125 +24,6 @@ import {
   useForm,
   useFormDispatch,
 } from "./reducers/FormContext";
-
-function CheckmarkButton({
-  checked,
-  title,
-  description,
-  name,
-  value,
-  onChange,
-  cost,
-}) {
-  return (
-    <label>
-      <input
-        type="checkbox"
-        name={name}
-        value={value}
-        checked={checked}
-        onChange={(e) => onChange(e)}
-      />
-      <div className="radio-button-container">
-        <img className="checkmark-logo" src={checkmark} alt={`${title} logo`} />
-        <div className="radio-text-container">
-          <h4 className="radio-title">{title}</h4>
-          <p className="radio-description">{description}</p>
-        </div>
-        <div className="checkmark-cost">{cost}</div>
-      </div>
-    </label>
-  );
-}
-
-// optional: move data into data json
-function Step3Form() {
-  const formState = useForm();
-  const dispatch = useFormDispatch();
-  const isYearly = formState.isYearly;
-  const HAS_PLUS = true; // adds plus sign to cost
-
-  const handleCheckmarkChange = (e) => {
-    dispatch({
-      type: REDUCER_ACTIONS.UPDATE_INPUT,
-      field: e.target.name,
-      payload: e.target.checked,
-    });
-  };
-
-  return (
-    <div className="form-container">
-      <h2>Pick add-ons</h2>
-      <p className="mb-1">Add-ons help enhance your gaming experience</p>
-      <div id="select-add-ons">
-        <CheckmarkButton
-          name="add_on_multiplayer"
-          title={ADD_ONS.add_on_multiplayer.title}
-          description={ADD_ONS.add_on_multiplayer.description}
-          value={ADD_ONS.add_on_multiplayer.value}
-          cost={
-            isYearly
-              ? formatCost(
-                  ADD_ONS.add_on_multiplayer.cost.yearly,
-                  isYearly,
-                  HAS_PLUS
-                )
-              : formatCost(
-                  ADD_ONS.add_on_multiplayer.cost.monthly,
-                  isYearly,
-                  HAS_PLUS
-                )
-          }
-          checked={formState.add_on_multiplayer}
-          onChange={handleCheckmarkChange}
-        />
-        <CheckmarkButton
-          name="add_on_storage"
-          title={ADD_ONS.add_on_storage.title}
-          description={ADD_ONS.add_on_storage.description}
-          value={ADD_ONS.add_on_storage.value}
-          cost={
-            isYearly
-              ? formatCost(
-                  ADD_ONS.add_on_storage.cost.yearly,
-                  isYearly,
-                  HAS_PLUS
-                )
-              : formatCost(
-                  ADD_ONS.add_on_storage.cost.monthly,
-                  isYearly,
-                  HAS_PLUS
-                )
-          }
-          checked={formState.add_on_storage}
-          onChange={handleCheckmarkChange}
-        />
-        <CheckmarkButton
-          name="add_on_profile"
-          title={ADD_ONS.add_on_profile.title}
-          description={ADD_ONS.add_on_profile.description}
-          value={ADD_ONS.add_on_profile.value}
-          cost={
-            isYearly
-              ? formatCost(
-                  ADD_ONS.add_on_profile.cost.yearly,
-                  isYearly,
-                  HAS_PLUS
-                )
-              : formatCost(
-                  ADD_ONS.add_on_profile.cost.monthly,
-                  isYearly,
-                  HAS_PLUS
-                )
-          }
-          checked={formState.add_on_profile}
-          onChange={handleCheckmarkChange}
-        />
-      </div>
-    </div>
-  );
-}
-
 
 /**
  *
@@ -163,8 +44,7 @@ export function AddOnRow({ addOnEnum, isYearly }) {
 }
 
 
-function Step4Form({ setStepNo }) {
-  const formState = useForm();
+function Step4Form({ formState, setStepNo }) {
   const planIdSummary = formatPlanIdSummary(formState);
   const planCost = formatPlanCostSummary(formState);
   const { add_on_multiplayer, add_on_storage, add_on_profile } = formState;
