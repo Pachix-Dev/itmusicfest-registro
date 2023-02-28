@@ -1,10 +1,22 @@
-import { useState, useEffect, useReducer } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
-import arcadeLogo from "./assets/images/icon-arcade.svg";
-import advancedLogo from "./assets/images/icon-advanced.svg";
-import proLogo from "./assets/images/icon-pro.svg";
+import { PLAN, ADD_ONS } from "./constants";
+import {
+  formatCost,
+  formatPlanCostSummary,
+  formatPlanIdSummary,
+  getAddOnCost,
+  getTotalCost,
+} from "./components/form/utility";
+import { StepsSidebar } from "./components/form/StepsSidebar";
+import { Step1Form } from "./components/form/Step1Form";
+import { Step5Form } from "./components/form/Step5Form";
+import {
+  onValidateStep1,
+  onValidateStep2,
+} from "./components/form/validateForm";
 import checkmark from "./assets/images/icon-checkmark.svg";
-import thankyouLogo from "./assets/images/icon-thank-you.svg";
+
 
 import {
   FormProvider,
@@ -12,88 +24,6 @@ import {
   useForm,
   useFormDispatch,
 } from "./reducers/FormContext";
-
-// Mobile Sidebar Icons rendered at the top
-function StepsSidebar({ activeStep = 1 }) {
-  return (
-    <div className="step-container">
-      {new Array(4).fill(0).map((_, idx) => {
-        const classString = idx + 1 === activeStep ? "step active" : "step";
-        return (
-          <div key={idx} className={classString}>
-            {idx + 1}
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
-/**
- * Input with label, error
- * @param {*} param0
- * @returns
- */
-const Input = ({ label, error, ...args }) => {
-  return (
-    <>
-      <label className="flex-between">
-        {label}
-        {error && <span className="text-red font-weight-500">{error}</span>}
-      </label>
-      <input className={error ? "border-red" : ""} {...args} />
-    </>
-  );
-};
-
-function Step1Form() {
-  const formState = useForm();
-  const dispatch = useFormDispatch();
-
-  const handleTextChange = (e) => {
-    dispatch({
-      type: REDUCER_ACTIONS.UPDATE_INPUT,
-      field: e.target.name,
-      payload: e.target.value,
-    });
-  };
-
-  return (
-    <div className="form-container">
-      <h2>Personal info</h2>
-      <p className="mb-1">
-        Please provide your name, email, address, and phone number
-      </p>
-      <Input
-        label="Name"
-        error={formState.errors.name}
-        type="text"
-        name="name"
-        placeholder="e.g. Stephen King"
-        onChange={(e) => handleTextChange(e)}
-        value={formState.name}
-      />
-      <Input
-        label="Email Address"
-        error={formState.errors.email}
-        type="email"
-        name="email"
-        placeholder="e.g. stephenking@lorem.com"
-        onChange={(e) => handleTextChange(e)}
-        value={formState.email}
-      />
-      <Input
-        label="Phone Number"
-        error={formState.errors.phone}
-        type="tel"
-        name="phone"
-        placeholder="e.g. +1234567890"
-        onChange={(e) => handleTextChange(e)}
-        value={formState.phone}
-      />
-    </div>
-  );
-}
 
 /**
  * This styled radio button includes a button feel with borders, hover effects, logo, description
@@ -166,48 +96,6 @@ function ToggleSwitch({ name, checked, onChange }) {
   );
 }
 
-/**
- * formats the cost into a per year or per month string
- * @param {number} number integer dollar amount
- * @param {boolean} isYearly boolean of whether to charge yearly or monthly
- * @param {boolean} plus boolean of whether to add a "+" to the format
- * @returns formatted cost string per month/year
- */
-const formatCost = (number, isYearly = false, plus = false) => {
-  const cost = isYearly ? `$${number}/yr` : `$${number}/mo`;
-  return `${plus ? "+" : ""}` + cost;
-};
-
-const PLAN = {
-  arcade: {
-    logoSrc: arcadeLogo,
-    title: "Arcade",
-    cost: {
-      monthly: 9,
-      yearly: 90,
-    },
-    value: "arcade",
-  },
-  advanced: {
-    logoSrc: advancedLogo,
-    title: "Advanced",
-    cost: {
-      monthly: 12,
-      yearly: 120,
-    },
-    value: "advanced",
-  },
-  pro: {
-    logoSrc: proLogo,
-    title: "Pro",
-    cost: {
-      monthly: 15,
-      yearly: 150,
-    },
-    value: "pro",
-  },
-};
-
 function Step2Form() {
   const formState = useForm();
   const dispatch = useFormDispatch();
@@ -240,8 +128,6 @@ function Step2Form() {
           </span>
         )}
       </p>
-
-      {/* {formState.errors.plan_id && <p  className="mb-1 text-red font-weight-500">You must make a selection.</p>} */}
       <div id="select-plan-id">
         <RadioButton
           checked={formState.plan_id === PLAN.arcade.value}
@@ -328,36 +214,6 @@ function CheckmarkButton({
     </label>
   );
 }
-
-const ADD_ONS = {
-  add_on_multiplayer: {
-    title: "Online service",
-    description: "Access to multiplayer game",
-    value: "multiplayer",
-    cost: {
-      yearly: 10,
-      monthly: 1,
-    },
-  },
-  add_on_storage: {
-    title: "Larger storage",
-    description: "Extra 1TB of cloud save",
-    value: "storage",
-    cost: {
-      yearly: 20,
-      monthly: 2,
-    },
-  },
-  add_on_profile: {
-    title: "Customizable profile",
-    description: "Custom theme on your profile",
-    value: "profile",
-    cost: {
-      yearly: 20,
-      monthly: 2,
-    },
-  },
-};
 
 // optional: move data into data json
 function Step3Form() {
@@ -447,67 +303,13 @@ function Step3Form() {
   );
 }
 
-/**
- *
- * @param {*} formState - see initialFormState in FormContext
- * return formated summary string or null
- */
-const formatPlanIdSummary = (formState) => {
-  const { plan_id, isYearly } = formState;
-  if (plan_id != undefined && isYearly != undefined) {
-    const timeUnit = isYearly ? "Yearly" : "Monthly";
-    return `${PLAN[plan_id].title} (${timeUnit})`;
-  }
-  return null;
-};
-
-/**
- *
- * @param {string} plan_id
- * @param {boolean} isYearly
- * @returns
- */
-const getPlanCost = (plan_id, isYearly) => {
-  if (plan_id != undefined && isYearly != undefined) {
-    const timeUnit = isYearly ? "yearly" : "monthly";
-    const cost = PLAN[plan_id].cost[timeUnit];
-    return cost;
-  }
-  return null;
-};
-
-/**
- *
- * @param {*} formState - see initialFormState in FormContext
- * return formated plan cost summary string or null
- */
-const formatPlanCostSummary = (formState) => {
-  const { plan_id, isYearly } = formState;
-  if (plan_id != undefined && isYearly != undefined) {
-    const cost = getPlanCost(plan_id, isYearly);
-    return formatCost(cost, isYearly);
-  }
-  return null;
-};
-
-/**
- *
- * @param {string} addOnEnum
- * @param {boolean} isYearly
- * @returns {number}
- */
-const getAddOnCost = (addOnEnum, isYearly) => {
-  const { cost } = ADD_ONS[addOnEnum];
-  const perCost = isYearly ? cost.yearly : cost.monthly;
-  return perCost;
-};
 
 /**
  *
  * @param {string} addOn add_on_multiplayer, add_on_profile, add_on_storage
  * @returns {JSX.Element}
  */
-function AddOnRow({ addOnEnum, isYearly }) {
+export function AddOnRow({ addOnEnum, isYearly }) {
   const { title } = ADD_ONS[addOnEnum];
   const addOnCost = getAddOnCost(addOnEnum, isYearly);
   const costString = formatCost(addOnCost, isYearly, true);
@@ -520,32 +322,6 @@ function AddOnRow({ addOnEnum, isYearly }) {
   );
 }
 
-const getTotalCost = (formState) => {
-  const {
-    isYearly,
-    plan_id,
-    add_on_multiplayer,
-    add_on_storage,
-    add_on_profile,
-  } = formState;
-
-  try {
-    const planCost = getPlanCost(plan_id, isYearly);
-    const multiplayerCost = add_on_multiplayer
-      ? getAddOnCost("add_on_multiplayer", isYearly)
-      : 0;
-    const storageCost = add_on_storage
-      ? getAddOnCost("add_on_storage", isYearly)
-      : 0;
-    const profileCost = add_on_profile
-      ? getAddOnCost("add_on_profile", isYearly)
-      : 0;
-    return planCost + multiplayerCost + storageCost + profileCost;
-  } catch (e) {
-    console.error(e);
-    return null;
-  }
-};
 
 function Step4Form({ setStepNo }) {
   const formState = useForm();
@@ -603,19 +379,7 @@ function Step4Form({ setStepNo }) {
   );
 }
 
-function Step5Form() {
-  return (
-    <div className="form-container column-flex-center gap-1">
-      <img className="thank-you-logo" src={thankyouLogo} alt="thank you logo" />
-      <h2 className="text-center">Thank you</h2>
-      <p className="mb-1 text-center">
-        Thanks for confirming your subscription! We hope you have fun using our
-        platform. If you ever need support, please feel free to email us at
-        support@loremgaming.com
-      </p>
-    </div>
-  );
-}
+
 
 /**
  * Given a step, will render the proper StepForm
@@ -654,7 +418,7 @@ function getStepform(step = 1) {
  * @param {*} param0
  * @returns
  */
-function SubmitButton({ stepNo, onNextStep, onBackStep, onValidate }) {
+function SubmitButton({ stepNo, onNextStep, onBackStep }) {
   return (
     <>
       <button
@@ -672,58 +436,6 @@ function SubmitButton({ stepNo, onNextStep, onBackStep, onValidate }) {
     </>
   );
 }
-
-// As per the HTML Specification
-const emailRegExp =
-  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-const defaultError = "This field is required";
-/**
- * todo: MOVE Validation to seprate folder
- *
- *
- * @param {*} formState
- * @returns
- */
-const onValidateStep1 = (formState) => {
-  const { name, email, phone } = formState;
-  // default: empty strings
-  const errors = {
-    name: "",
-    email: "",
-    phone: "",
-  };
-
-  if (name.length === 0) {
-    errors.name = defaultError;
-  }
-
-  if (email.length === 0) {
-    errors.email = defaultError;
-  } else if (!emailRegExp.test(email)) {
-    errors.email = "Must enter a valid email";
-  }
-
-  if (phone.length === 0) {
-    errors.phone = defaultError;
-  }
-
-  const hasError = !!errors.name || !!errors.email || !!errors.phone;
-  return { errors, hasError };
-};
-
-const onValidateStep2 = (formState) => {
-  const { plan_id } = formState;
-  const errors = {
-    plan_id: undefined,
-  };
-
-  if (plan_id == undefined) {
-    errors.plan_id = "You must select an option.";
-  }
-
-  const hasError = !!errors.plan_id;
-  return { errors, hasError };
-};
 
 /**
  * Top level App component includes the Form Provider which includes form dispatch and formState in FormContext
@@ -768,7 +480,11 @@ function App() {
   return (
     <div className="App">
       <StepsSidebar activeStep={Math.min(stepNo, 4)} />
-      <StepForm setStepNo={setStepNo} />
+      <StepForm
+        formState={formState}
+        dispatch={dispatch}
+        setStepNo={setStepNo}
+      />
       {stepNo <= 4 && (
         <footer>
           <SubmitButton
