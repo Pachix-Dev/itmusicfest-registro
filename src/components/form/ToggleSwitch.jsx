@@ -1,5 +1,3 @@
-import React from 'react';
-
 /**
  * This component is based of the toggle switch from w3schools
  * https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_switch

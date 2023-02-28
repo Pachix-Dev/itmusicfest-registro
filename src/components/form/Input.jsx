@@ -1,5 +1,3 @@
-import React from 'react';
-
 /**
  * Input with label, error, and any input args
  * @param {string} label

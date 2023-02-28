@@ -1,5 +1,4 @@
 
-import React from 'react';
 import arcadeLogo from "../../assets/images/icon-arcade.svg";
 
 /**

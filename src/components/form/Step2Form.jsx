@@ -1,8 +1,4 @@
-import React from 'react';
-
-import {
-  REDUCER_ACTIONS,
-} from "../../reducers/FormContext";
+import { REDUCER_ACTIONS } from "../../reducers/FormContext";
 import { RadioButton } from './RadioButton';
 import { ToggleSwitch } from './ToggleSwitch';
 import {PLAN} from '../../constants';

@@ -1,5 +1,3 @@
-import React from 'react';
-
 // Mobile Sidebar Icons rendered at the top
 export function StepsSidebar({ activeStep = 1 }) {
   return (

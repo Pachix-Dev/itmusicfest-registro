@@ -1,7 +1,5 @@
-import React from 'react';
 import {Input} from "./Input";
 import { REDUCER_ACTIONS } from "../../reducers/FormContext";
-
 
 export function Step1Form({formState, dispatch}) {
 

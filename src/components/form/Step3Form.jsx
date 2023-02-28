@@ -1,4 +1,3 @@
-import React from 'react';
 import { REDUCER_ACTIONS } from '../../reducers/FormContext';
 import { ADD_ONS } from '../../constants';
 import { CheckmarkButton } from './CheckmarkButton';

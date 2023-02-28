@@ -1,4 +1,3 @@
-import React from 'react';
 import thankyouLogo from '../../assets/images/icon-thank-you.svg';
 
 export function Step5Form() {
