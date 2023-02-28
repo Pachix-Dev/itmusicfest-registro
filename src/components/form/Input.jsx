@@ -10,7 +10,7 @@ export const Input = ({ label, error, ...args }) => {
     <>
       <label className="flex-between">
         {label}
-        {error && <span className="text-red font-weight-500">{error}</span>}
+        {error && <span className="text-red font-medium">{error}</span>}
       </label>
       <input className={error ? "border-red" : ""} {...args} />
     </>

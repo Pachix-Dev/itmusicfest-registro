@@ -29,7 +29,7 @@ export function Step2Form({formState, dispatch}) {
       <p>You have the option of monthly or yearly billing.</p>
       <p className="min-height-1 mb-1">
         {formState.errors.plan_id && (
-          <span className="text-red font-weight-500">
+          <span className="text-red font-medium">
             {formState.errors.plan_id}
           </span>
         )}

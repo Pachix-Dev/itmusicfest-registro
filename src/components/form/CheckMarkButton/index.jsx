@@ -1,4 +1,5 @@
-import checkmark from "../../assets/images/icon-checkmark.svg";
+import checkmark from "../../../assets/images/icon-checkmark.svg";
+import "./checkmarkbutton.css";
 
 /**
  * This component is styled like the RadioButton 
@@ -30,9 +31,9 @@ export function CheckmarkButton({
       />
       <div className="radio-button-container">
         <img className="checkmark-logo" src={checkmark} alt={`${title} logo`} />
-        <div className="radio-text-container">
-          <h4 className="radio-title">{title}</h4>
-          <p className="radio-description">{description}</p>
+        <div>
+          <h4>{title}</h4>
+          <p>{description}</p>
         </div>
         <div className="checkmark-cost">{cost}</div>
       </div>

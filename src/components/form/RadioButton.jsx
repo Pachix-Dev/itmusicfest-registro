@@ -32,11 +32,11 @@ export function RadioButton({
         onChange={(e) => onChange(e)}
       />
       <div className="radio-button-container">
-        <img className="img-logo" src={logoSrc} alt={`${title} logo`} />
-        <div className="radio-text-container">
-          <h4 className="radio-title">{title}</h4>
-          <p className="radio-description">{description}</p>
-          {isYearly && <p className="radio-description-2">2 months free</p>}
+        <img src={logoSrc} alt={`${title} logo`} />
+        <div>
+          <h4>{title}</h4>
+          <p>{description}</p>
+          {isYearly && <p className="text-primary">2 months free</p>}
         </div>
       </div>
     </label>

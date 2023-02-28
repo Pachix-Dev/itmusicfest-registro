@@ -46,12 +46,12 @@ export function Step4Form({ formState, setStepNo }) {
       <div className="summary">
         <div className="summary-row border-b">
           <div>
-            <p className="text-primary text-bold-600">{planIdSummary}</p>
+            <p className="text-primary font-semibold">{planIdSummary}</p>
             <p className="internal-link" onClick={() => setStepNo(2)}>
               change
             </p>
           </div>
-          <div className="text-primary text-bold-600">{planCost}</div>
+          <div className="text-primary font-semibold">{planCost}</div>
         </div>
         {add_on_multiplayer && (
           <AddOnRow
@@ -67,10 +67,10 @@ export function Step4Form({ formState, setStepNo }) {
         )}
       </div>
       <div className="summary-row p-1">
-        <p className="text-bold-600">{`Total (per ${
+        <p className="font-semibold">{`Total (per ${
           formState.isYearly ? "year" : "month"
         })`}</p>
-        <p className="text-secondary text-bold-600">{totalCost}</p>
+        <p className="text-secondary font-semibold">{totalCost}</p>
       </div>
     </div>
   );

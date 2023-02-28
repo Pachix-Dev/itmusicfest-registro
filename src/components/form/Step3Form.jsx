@@ -1,6 +1,6 @@
 import { REDUCER_ACTIONS } from '../../reducers/FormContext';
 import { ADD_ONS } from '../../constants';
-import { CheckmarkButton } from './CheckmarkButton';
+import { CheckmarkButton } from './CheckMarkButton';
 import { formatCost } from './utility';
 
 // optional: move data into data json
