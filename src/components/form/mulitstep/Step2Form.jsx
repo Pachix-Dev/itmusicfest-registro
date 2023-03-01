@@ -1,8 +1,8 @@
-import { REDUCER_ACTIONS } from "../../reducers/FormContext";
-import { RadioButton } from './RadioButton';
-import { ToggleSwitch } from './ToggleSwitch';
-import {PLAN} from '../../constants';
-import {formatCost} from './utility';
+import { REDUCER_ACTIONS } from "../../../reducers/FormContext";
+import { RadioButton } from '../RadioButton';
+import { ToggleSwitch } from '../ToggleSwitch';
+import {PLAN} from '../../../constants';
+import {formatCost} from '../utility';
 
 export function Step2Form({formState, dispatch}) {
   const isYearly = formState.isYearly;

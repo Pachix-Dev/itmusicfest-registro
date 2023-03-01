@@ -2,11 +2,14 @@ import { useState } from "react";
 import "./App.css";
 
 import { StepsSidebar } from "./components/form/StepsSidebar";
-import { Step1Form } from "./components/form/Step1Form";
-import { Step2Form } from "./components/form/Step2Form";
-import { Step3Form } from "./components/form/Step3Form";
-import { Step4Form } from "./components/form/Step4Form";
-import { Step5Form } from "./components/form/Step5Form";
+import {
+  Step1Form,
+  Step2Form,
+  Step3Form,
+  Step4Form,
+  Step5Form,
+} from "./components/form/mulitstep";
+
 import {
   onValidateStep1,
   onValidateStep2,

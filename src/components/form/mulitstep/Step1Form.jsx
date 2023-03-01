@@ -1,8 +1,7 @@
-import {Input} from "./Input";
-import { REDUCER_ACTIONS } from "../../reducers/FormContext";
+import { Input } from "../Input";
+import { REDUCER_ACTIONS } from "../../../reducers/FormContext";
 
-export function Step1Form({formState, dispatch}) {
-
+export function Step1Form({ formState, dispatch }) {
   if (!formState || !dispatch) {
     return null;
   }

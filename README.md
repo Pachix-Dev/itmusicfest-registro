@@ -238,8 +238,6 @@ This repo currently has most of the logic in `App.jsx`, we can easily break up t
 
 The project also must still add desktop view. 
 
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
-
 ### Useful resources
 
 - [React Reducer and Context](https://beta.reactjs.org/learn/scaling-up-with-reducer-and-context) - This helped architect the state managment using vanilla react.

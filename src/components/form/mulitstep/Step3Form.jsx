@@ -1,7 +1,7 @@
-import { REDUCER_ACTIONS } from '../../reducers/FormContext';
-import { ADD_ONS } from '../../constants';
-import { CheckmarkButton } from './CheckMarkButton';
-import { formatCost } from './utility';
+import { REDUCER_ACTIONS } from '../../../reducers/FormContext';
+import { ADD_ONS } from '../../../constants';
+import { CheckmarkButton } from '../CheckMarkButton';
+import { formatCost } from '../utility';
 
 // optional: move data into data json
 export function Step3Form({formState, dispatch }) {
