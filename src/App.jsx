@@ -22,6 +22,8 @@ import {
   useFormDispatch,
 } from "./reducers/FormContext";
 
+import useIsMobile from "./useIsMobile";
+
 /**
  * Given a step, will render the proper StepForm
  * @param {} step : number
@@ -77,6 +79,7 @@ function App() {
   const StepForm = getStepform(stepNo);
   const formState = useForm();
   const dispatch = useFormDispatch();
+  const isMobile = useIsMobile();
 
   const onValidate = () => {
     switch (stepNo) {
@@ -110,36 +113,18 @@ function App() {
 
   return (
     <div className="app">
-      {/* MOBILE LAYOUT */}
-      <div className="mobile-only">
-        <StepsSidebar activeStep={Math.min(stepNo, 4)} />
-        <StepForm
-          formState={formState}
-          dispatch={dispatch}
-          setStepNo={setStepNo}
-        />
-        {stepNo <= 4 && (
-          <footer>
-            <SubmitButton
-              stepNo={stepNo}
-              onNextStep={onNextStep}
-              onBackStep={onBackStep}
-            />
-          </footer>
-        )}
-      </div>
-
-      {/* DESKTOP LAYOUT */}
-      <div className="desktop-only desktop-app bg-white p-1 rounded ">
-        <StepsSidebar activeStep={Math.min(stepNo, 4)} />
-        <div className="relative rounded max-w-30">
+     
+      {isMobile ? (
+        //  MOBILE LAYOUT 
+        <div className="mobile-only">
+          <StepsSidebar activeStep={Math.min(stepNo, 4)} />
           <StepForm
             formState={formState}
             dispatch={dispatch}
             setStepNo={setStepNo}
           />
           {stepNo <= 4 && (
-            <footer className="absolute pr-2">
+            <footer>
               <SubmitButton
                 stepNo={stepNo}
                 onNextStep={onNextStep}
@@ -148,7 +133,31 @@ function App() {
             </footer>
           )}
         </div>
-      </div>
+      ) : (
+        // Desktop 
+        // note a pure css solution was tried, but css can only hide the element
+        // if the element will still exists, there is additional complexity with naming 
+        // collisions (i.e. radio single selection)
+        <div className="desktop-only desktop-app bg-white p-1 rounded ">
+          <StepsSidebar activeStep={Math.min(stepNo, 4)} />
+          <div className="relative rounded max-w-30">
+            <StepForm
+              formState={formState}
+              dispatch={dispatch}
+              setStepNo={setStepNo}
+            />
+            {stepNo <= 4 && (
+              <footer className="absolute pr-2">
+                <SubmitButton
+                  stepNo={stepNo}
+                  onNextStep={onNextStep}
+                  onBackStep={onBackStep}
+                />
+              </footer>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

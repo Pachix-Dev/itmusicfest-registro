@@ -1,4 +1,3 @@
-
 import arcadeLogo from "../../assets/images/icon-arcade.svg";
 
 /**
