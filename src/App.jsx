@@ -109,22 +109,46 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <StepsSidebar activeStep={Math.min(stepNo, 4)} />
-      <StepForm
-        formState={formState}
-        dispatch={dispatch}
-        setStepNo={setStepNo}
-      />
-      {stepNo <= 4 && (
-        <footer>
-          <SubmitButton
-            stepNo={stepNo}
-            onNextStep={onNextStep}
-            onBackStep={onBackStep}
+    <div className="app">
+      {/* MOBILE LAYOUT */}
+      <div className="mobile-only">
+        <StepsSidebar activeStep={Math.min(stepNo, 4)} />
+        <StepForm
+          formState={formState}
+          dispatch={dispatch}
+          setStepNo={setStepNo}
+        />
+        {stepNo <= 4 && (
+          <footer>
+            <SubmitButton
+              stepNo={stepNo}
+              onNextStep={onNextStep}
+              onBackStep={onBackStep}
+            />
+          </footer>
+        )}
+      </div>
+
+      {/* DESKTOP LAYOUT */}
+      <div className="desktop-only desktop-app bg-white p-1 rounded ">
+        <StepsSidebar activeStep={Math.min(stepNo, 4)} />
+        <div className="relative rounded max-w-30">
+          <StepForm
+            formState={formState}
+            dispatch={dispatch}
+            setStepNo={setStepNo}
           />
-        </footer>
-      )}
+          {stepNo <= 4 && (
+            <footer className="absolute pr-2">
+              <SubmitButton
+                stepNo={stepNo}
+                onNextStep={onNextStep}
+                onBackStep={onBackStep}
+              />
+            </footer>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

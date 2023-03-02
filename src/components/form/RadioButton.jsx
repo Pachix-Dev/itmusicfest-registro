@@ -31,7 +31,7 @@ export function RadioButton({
         checked={checked}
         onChange={(e) => onChange(e)}
       />
-      <div className="radio-button-container">
+      <div className="radio-button-container radio-desktop">
         <img src={logoSrc} alt={`${title} logo`} />
         <div>
           <h4>{title}</h4>
