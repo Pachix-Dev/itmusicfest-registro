@@ -234,13 +234,12 @@ const onValidateStep1 = (formState) => {
 
 ### Continued development
 
-This repo currently has most of the logic in `App.jsx`, we can easily break up the components into utilities, constants, components, and other folders. We would need to re-assess the css architecture to possibly locally scope come css which comes automatically with Vite defaults.
-
-The project also must still add desktop view. 
+Curently we use javascript hook to manage desktop vs mobile views along with css media queries. There may be better ways to do this. 
 
 ### Useful resources
 
 - [React Reducer and Context](https://beta.reactjs.org/learn/scaling-up-with-reducer-and-context) - This helped architect the state managment using vanilla react.
+- [useIsMobile hook](https://codesandbox.io/s/b78in) - This hook comes in handy for mobile vs desktop conditional logic.
 
 
 ## Author
