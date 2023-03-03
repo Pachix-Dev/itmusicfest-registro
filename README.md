@@ -33,14 +33,19 @@ Users should be able to:
 
 ### Screenshot
 
-Mobile Demo.
-![](./multi-form-demo.gif)
+Mobile Demo
+
+![](./public/multi-form-demo.gif)
+
+Desktop Screenshot
+
+![](./public/desktop-screenshot.png)
 
 ### Links
 
 <!-- UPDATE -->
-- Solution URL: [Add solution URL here](https://github.com/dionlow/multi-step-form-vite-react)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [code](https://github.com/dionlow/multi-step-form-vite-react)
+- Live Site URL: [demo](https://www.dionlow.me/multi-step-form-vite-react/)
 
 ## My process
 
@@ -50,6 +55,7 @@ Mobile Demo.
 - CSS custom properties
 - Flexbox
 - CSS Grid
+- Github Pages
 - [React](https://reactjs.org/) - JS library
 - [Vite] (https://vitejs.dev/guide/why.html) - JS bundler
 - [React Reducer & Context] - (https://beta.reactjs.org/learn/scaling-up-with-reducer-and-context)
@@ -80,7 +86,7 @@ If you want more help with writing markdown, we'd recommend checking out [The Ma
 **Note: Delete this note and the content within this section and replace with your own learnings.** -->
 
 
-In this project, I used vanilla css. I'm proud of using css variables to store colors to form a basic design system to when starting the project.
+In this project, I used vanilla css. I'm proud of using css variables to store colors to form a basic design system when starting the project.
 
 ```css
   /* primary colors */
@@ -165,7 +171,7 @@ const formReducer = (state, action) => {
 };
 ```
 
-We see validation more as a proof of concept here. We don't really use a 3rd party validation library to showcase basic js. There can be discussion on where this validation logic should sit, whether closer to the form context (reducers) or closer to the html and allow input elements to specify validation properties. 
+We see validation more as a proof of concept here. We opt to not use a 3rd party validation library to showcase basic js. There can be discussion on where this validation logic should sit, whether closer to the form context (reducers) or closer to the html and allow input elements to specify validation properties. 
 
 Creating validation in the parent allows the StepForms to focus on internal elements while the parent along with the confirm button allows between page logic to be separated
 
@@ -234,7 +240,7 @@ const onValidateStep1 = (formState) => {
 
 ### Continued development
 
-Curently we use javascript hook to manage desktop vs mobile views along with css media queries. There may be better ways to do this. 
+Curently we use javascript hook to manage desktop vs mobile views along with css media queries. There may be better ways to do this. All feedback is welcome! 
 
 ### Useful resources
 
