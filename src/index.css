@@ -41,8 +41,13 @@
   box-sizing: border-box;
 }
 
+html {
+  height: fill-available;
+}
+
 body {
   min-height: 100vh;
+  min-height: fill-available;
 }
 
 p {
