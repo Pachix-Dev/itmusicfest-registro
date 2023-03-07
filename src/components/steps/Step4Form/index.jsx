@@ -1,5 +1,9 @@
 import { useEffect } from "react";
-import { useForm, useFormDispatch, REDUCER_ACTIONS } from "../../../state/FormContext";
+import {
+  useForm,
+  useFormDispatch,
+  REDUCER_ACTIONS,
+} from "../../../state/FormContext";
 import {
   formatCost,
   formatPlanIdSummary,
@@ -20,12 +24,22 @@ export function Step4Form() {
     true
   );
 
+  // Actions
+  const onToggleIsYearly = (formState) => {
+    const newValue = !formState.isYearly;
+    dispatch({
+      type: REDUCER_ACTIONS.UPDATE_INPUT,
+      field: "isYearly",
+      payload: newValue,
+    });
+  };
+
   const setStepNo = (step) => {
     dispatch({
       type: REDUCER_ACTIONS.SET_STEP,
       payload: step,
     });
-  }
+  };
 
   // if no planId or yearly selection is made: go back to step 2.
   useEffect(() => {
@@ -43,7 +57,7 @@ export function Step4Form() {
         <div className="summary-row border-b">
           <div>
             <p className="text-primary font-semibold">{planIdSummary}</p>
-            <p className="internal-link" onClick={() => setStepNo(2)}>
+            <p className="internal-link" onClick={() => onToggleIsYearly(formState)}>
               change
             </p>
           </div>
