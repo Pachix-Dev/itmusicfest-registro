@@ -1,15 +1,20 @@
-import { REDUCER_ACTIONS } from "../../../reducers/FormContext";
-import { RadioButton } from "../RadioButton";
-import { ToggleSwitch } from "../ToggleSwitch";
-import { PLAN } from "../../../constants";
-import { formatCost } from "../utility";
+import { REDUCER_ACTIONS, useForm, useFormDispatch } from "../../state/FormContext";
+import { RadioButton } from "../form/RadioButton";
+import { ToggleSwitch } from "../form/ToggleSwitch";
+import { PLAN } from "../../constants";
+
+import { formatCost } from "./utility";
+
+
 
 /**
  * Note this form has radio buttons which will only work if rendered once. If rendered
  * @returns
  */
 
-export function Step2Form({ formState, dispatch }) {
+export function Step2Form() {
+  const formState = useForm();
+  const dispatch = useFormDispatch();
   const isYearly = formState.isYearly;
 
   const handleCheckmarkChange = (e) => {

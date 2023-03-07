@@ -8,7 +8,7 @@ const defaultError = "This field is required";
  * @param {*} formState
  * @returns
  */
-export const onValidateStep1 = (formState) => {
+const onValidateStep1 = (formState) => {
   const { name, email, phone } = formState;
   // default: empty strings
   const errors = {
@@ -35,7 +35,7 @@ export const onValidateStep1 = (formState) => {
   return { errors, hasError };
 };
 
-export const onValidateStep2 = (formState) => {
+const onValidateStep2 = (formState) => {
   const { plan_id } = formState;
   const errors = {
     plan_id: undefined,
@@ -47,4 +47,16 @@ export const onValidateStep2 = (formState) => {
 
   const hasError = !!errors.plan_id;
   return { errors, hasError };
+};
+
+
+export const onValidate = (stepNo, formState) => {
+  switch (stepNo) {
+    case 1:
+      return onValidateStep1(formState);
+    case 2:
+      return onValidateStep2(formState);
+    default:
+      return { errors: {}, hasError: false };
+  }
 };

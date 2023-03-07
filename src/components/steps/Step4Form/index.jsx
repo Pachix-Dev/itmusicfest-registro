@@ -1,27 +1,16 @@
-import {useEffect} from 'react';
-import { ADD_ONS } from '../../../constants';
-import { getAddOnCost, formatCost, formatPlanIdSummary, formatPlanCostSummary, getTotalCost } from '../utility';
+import { useEffect } from "react";
+import { useForm, useFormDispatch, REDUCER_ACTIONS } from "../../../state/FormContext";
+import {
+  formatCost,
+  formatPlanIdSummary,
+  formatPlanCostSummary,
+  getTotalCost,
+} from "../utility";
+import { AddOnRow } from "./AddOnRow";
 
-/**
- *
- * @param {string} addOn add_on_multiplayer, add_on_profile, add_on_storage
- * @returns {JSX.Element}
- */
-export function AddOnRow({ addOnEnum, isYearly }) {
-  const { title } = ADD_ONS[addOnEnum];
-  const addOnCost = getAddOnCost(addOnEnum, isYearly);
-  const costString = formatCost(addOnCost, isYearly, true);
-
-  return (
-    <div className="summary-row">
-      <p>{title}</p>
-      <div className="summary-cost">{costString}</div>
-    </div>
-  );
-}
-
-
-export function Step4Form({ formState, setStepNo }) {
+export function Step4Form() {
+  const formState = useForm();
+  const dispatch = useFormDispatch();
   const planIdSummary = formatPlanIdSummary(formState);
   const planCost = formatPlanCostSummary(formState);
   const { add_on_multiplayer, add_on_storage, add_on_profile } = formState;
@@ -30,6 +19,13 @@ export function Step4Form({ formState, setStepNo }) {
     formState.isYearly,
     true
   );
+
+  const setStepNo = (step) => {
+    dispatch({
+      type: REDUCER_ACTIONS.SET_STEP,
+      payload: step,
+    });
+  }
 
   // if no planId or yearly selection is made: go back to step 2.
   useEffect(() => {

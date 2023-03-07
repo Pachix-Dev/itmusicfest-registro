@@ -16,10 +16,12 @@ export function useFormDispatch() {
 // actions stored in ENUM for future action support
 export const REDUCER_ACTIONS = {
   UPDATE_INPUT: "UPDATE_INPUT",
+  SET_STEP: "SET_STEP",
   SET_ERROR: "SET_ERROR",
 };
 
 const initialFormState = {
+  currentStep: 1,
   name: "",
   email: "",
   phone: "",
@@ -71,6 +73,11 @@ const formReducer = (state, action) => {
           ...action.payload,
         },
       };
+    case REDUCER_ACTIONS.SET_STEP: 
+      return {
+        ...state, 
+        currentStep: action.payload
+      }
     default:
       return state;
   }

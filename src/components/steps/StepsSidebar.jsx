@@ -1,3 +1,6 @@
+import { useForm } from "../../state/FormContext";
+
+
 const STEPS = {
   step1: {
     number: 1,
@@ -22,9 +25,14 @@ const STEPS = {
 };
 
 const STEPS_ARRAY = [STEPS.step1, STEPS.step2, STEPS.step3, STEPS.step4];
+const MAX_STEP = STEPS_ARRAY.length;
+
 
 // Mobile Sidebar Icons rendered at the top
-export function StepsSidebar({ activeStep = 1 }) {
+export function StepsSidebar() {
+  const formState = useForm()
+  const activeStep = Math.min(formState.currentStep, MAX_STEP);
+
   return (
     <div className="step-container">
       {STEPS_ARRAY.map((step) => {

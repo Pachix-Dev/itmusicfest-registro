@@ -1,10 +1,12 @@
-import { REDUCER_ACTIONS } from '../../../reducers/FormContext';
-import { ADD_ONS } from '../../../constants';
-import { CheckmarkButton } from '../CheckMarkButton';
-import { formatCost } from '../utility';
+import { REDUCER_ACTIONS,  useForm, useFormDispatch  } from '../../state/FormContext';
+import { ADD_ONS } from '../../constants';
+import { CheckmarkButton } from '../form/CheckMarkButton';
+import { formatCost } from './utility';
 
 // optional: move data into data json
-export function Step3Form({formState, dispatch }) {
+export function Step3Form() {
+  const formState = useForm();
+  const dispatch = useFormDispatch();
   const isYearly = formState.isYearly;
   const HAS_PLUS = true; // adds plus sign to cost
 

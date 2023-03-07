@@ -1,10 +1,9 @@
-import { Input } from "../Input";
-import { REDUCER_ACTIONS } from "../../../reducers/FormContext";
+import { Input } from "../form/Input";
+import { REDUCER_ACTIONS, useForm, useFormDispatch  } from "../../state/FormContext";
 
-export function Step1Form({ formState, dispatch }) {
-  if (!formState || !dispatch) {
-    return null;
-  }
+export function Step1Form() {
+  const formState = useForm();
+  const dispatch = useFormDispatch();
 
   const handleTextChange = (e) => {
     dispatch({
