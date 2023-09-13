@@ -1,4 +1,4 @@
-import arcadeLogo from "../../assets/images/icon-arcade.svg";
+import arcadeLogo from '../../assets/images/icon-arcade.svg'
 
 /**
  * This styled radio button includes a button feel with borders, hover effects, logo, description
@@ -11,7 +11,7 @@ import arcadeLogo from "../../assets/images/icon-arcade.svg";
  * @param {*} param0
  * @returns
  */
-export function RadioButton({
+export function RadioButton ({
   checked,
   title,
   description,
@@ -19,25 +19,25 @@ export function RadioButton({
   value,
   logoSrc = arcadeLogo,
   isYearly,
-  onChange,
+  onChange
 }) {
   return (
     <label>
       <input
-        type="radio"
+        type='radio'
         name={name}
         value={value}
         checked={checked}
         onChange={(e) => onChange(e)}
       />
-      <div className="radio-button-container radio-desktop">
+      <div className='radio-button-container radio-desktop'>
         <img src={logoSrc} alt={`${title} logo`} />
         <div>
           <h4>{title}</h4>
           <p>{description}</p>
-          {isYearly && <p className="text-primary">2 months free</p>}
+          {isYearly && <p className='text-primary'>2 months free</p>}
         </div>
       </div>
     </label>
-  );
+  )
 }

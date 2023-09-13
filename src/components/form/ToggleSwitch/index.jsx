@@ -1,4 +1,4 @@
-import './switch.css';
+import './switch.css'
 
 /**
  * This component is based of the toggle switch from w3schools
@@ -14,17 +14,17 @@ import './switch.css';
  * @param {*} param0
  * @returns
  */
-export function ToggleSwitch({ name, checked, onChange }) {
+export function ToggleSwitch ({ name, checked, onChange }) {
   return (
-    <label className="switch">
+    <label className='switch'>
       <input
-        type="checkbox"
+        type='checkbox'
         name={name}
         checked={checked}
         onChange={(e) => onChange(e)}
         // onChange={e => onChange(e.target.checked)}
       />
-      <span className="slider round"></span>
+      <span className='slider round' />
     </label>
-  );
+  )
 }

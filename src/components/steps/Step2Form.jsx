@@ -1,50 +1,48 @@
-import { REDUCER_ACTIONS, useForm, useFormDispatch } from "../../state/FormContext";
-import { RadioButton } from "../form/RadioButton";
-import { ToggleSwitch } from "../form/ToggleSwitch";
-import { PLAN } from "../../constants";
+import { REDUCER_ACTIONS, useForm, useFormDispatch } from '../../state/FormContext'
+import { RadioButton } from '../form/RadioButton'
+import { ToggleSwitch } from '../form/ToggleSwitch'
+import { PLAN } from '../../constants'
 
-import { formatCost } from "./utility";
-
-
+import { formatCost } from './utility'
 
 /**
  * Note this form has radio buttons which will only work if rendered once. If rendered
  * @returns
  */
 
-export function Step2Form() {
-  const formState = useForm();
-  const dispatch = useFormDispatch();
-  const isYearly = formState.isYearly;
+export function Step2Form () {
+  const formState = useForm()
+  const dispatch = useFormDispatch()
+  const isYearly = formState.isYearly
 
   const handleCheckmarkChange = (e) => {
     dispatch({
       type: REDUCER_ACTIONS.UPDATE_INPUT,
       field: e.target.name,
-      payload: e.target.checked,
-    });
-  };
+      payload: e.target.checked
+    })
+  }
 
   const handleRadioChange = (e) => {
     dispatch({
       type: REDUCER_ACTIONS.UPDATE_INPUT,
       field: e.target.name,
-      payload: e.target.value,
-    });
-  };
+      payload: e.target.value
+    })
+  }
 
   return (
-    <div className="form-container">
+    <div className='form-container'>
       <h2>Select your plan</h2>
       <p>You have the option of monthly or yearly billing.</p>
-      <p className="min-height-1 mb-1">
+      <p className='min-height-1 mb-1'>
         {formState.errors.plan_id && (
-          <span className="text-red font-medium">
+          <span className='text-red font-medium'>
             {formState.errors.plan_id}
           </span>
         )}
       </p>
-      <div id="select-plan-id">
+      <div id='select-plan-id'>
         <RadioButton
           checked={formState.plan_id === PLAN.arcade.value}
           title={PLAN.arcade.title}
@@ -55,7 +53,7 @@ export function Step2Form() {
           }
           logoSrc={PLAN.arcade.logoSrc}
           value={PLAN.arcade.value}
-          name="plan_id"
+          name='plan_id'
           isYearly={isYearly}
           onChange={handleRadioChange}
         />
@@ -69,7 +67,7 @@ export function Step2Form() {
           }
           logoSrc={PLAN.advanced.logoSrc}
           value={PLAN.advanced.value}
-          name="plan_id"
+          name='plan_id'
           isYearly={isYearly}
           onChange={handleRadioChange}
         />
@@ -83,20 +81,20 @@ export function Step2Form() {
           }
           logoSrc={PLAN.pro.logoSrc}
           value={PLAN.pro.value}
-          name="plan_id"
+          name='plan_id'
           isYearly={isYearly}
           onChange={handleRadioChange}
         />
       </div>
-      <div className="switch-row">
-        <p className="text-primary">Monthly</p>
+      <div className='switch-row'>
+        <p className='text-primary'>Monthly</p>
         <ToggleSwitch
-          name="isYearly"
+          name='isYearly'
           checked={isYearly}
           onChange={handleCheckmarkChange}
         />
         <p>Yearly</p>
       </div>
     </div>
-  );
+  )
 }

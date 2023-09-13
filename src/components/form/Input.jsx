@@ -8,11 +8,11 @@
 export const Input = ({ label, error, ...args }) => {
   return (
     <>
-      <label className="flex-between">
+      <label className='flex-between'>
         {label}
-        {error && <span className="text-red font-medium">{error}</span>}
+        {error && <span className='text-red font-medium'>{error}</span>}
       </label>
-      <input className={error ? "border-red" : ""} {...args} />
+      <input className={error ? 'border-red' : ''} {...args} />
     </>
-  );
-};
+  )
+}

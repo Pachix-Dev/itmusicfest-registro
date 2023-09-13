@@ -4,8 +4,9 @@
   box-sizing: border-box;
   height: 10rem;
   width: 100vw;
-  background-image: url(./assets/images/bg-sidebar-mobile.svg);
-  background-size: cover;
+  background: linear-gradient(300deg,deepskyblue,darkviolet,blue);
+  background-size: 180% 180%;
+  animation: gradient-animation 18s ease infinite;
   display: flex;
   justify-content: center;
   padding: 2rem;
@@ -65,7 +66,7 @@ input:hover {
   font-weight: 600;
 }
 
-footer {
+.footer-form {
   position: fixed;
   box-sizing: border-box;
   bottom: 0;
@@ -168,6 +169,167 @@ footer {
   margin-top: 2rem;
 }
 
+
+.logosheader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.itmusicfest-wrapper {
+  background-image: url('/bgmusicfest.webp');
+  background-size: cover;
+}
+
+.logos-firstviewport {
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.band {
+  position: relative;
+  margin-top: -10%;
+}
+
+.blackeyedpeas-wrapper {
+  position: relative;
+  text-align: center;
+}
+
+.blackeyedpeas-wrapper .info-text {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  width: 100%;
+}
+
+.blackeyedpeas-wrapper .info-text h1 {
+  color: #E30613;
+  font-weight: bold;
+  line-height: 0.9;
+}
+
+.blackeyedpeas-wrapper .info-text h2 {
+  color: white;
+  font-weight: bold;
+  font-size: 2em;
+  margin: 0;
+  line-height: 1;
+}
+
+.band {
+  width: 75%;
+}
+
+.register-wrapper {
+  background-image: url('/bgmusicfest.webp');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+}
+
+.areas-title {
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 2em;
+  margin: 0;
+  padding: 20px;
+}
+
+.areas-title span {
+  background-color: #E30613;
+  padding: 10px 20px;
+  border-radius: 25px;
+}
+
+.areas {
+  color: white;
+  text-align: center;
+  font-size: 3em;
+  font-weight: bold;
+  word-spacing: 15px;
+}
+
+.get-register {
+  background-color: #0A66FF;
+  width: fit-content;
+  color: white;
+  font-size: 2em;
+  font-weight: bold;
+  padding: 15px 30px;
+  border-radius: 60px;
+  text-align: center;
+  line-height: 0.8;
+}
+
+.get-register span {
+  font-size: 20px;
+}
+
+.limit {
+  color: white;
+  font-weight: bold;
+  background-color: #E30613;
+  padding: 8px 20px;
+  border-radius: 15px;
+  line-height: 1;
+}
+
+.get-register2 {
+  background-color: #FFFFFF;
+  width: fit-content;
+  color: black;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 15px 30px;
+  border-radius: 60px;
+  text-align: center;
+}
+
+.get-register2 strong {
+  color: #E30613;
+}
+
+.footer-socialmedia a {
+  padding-left: 20px;
+}
+
+.footer-socialmedia svg {
+  fill: white;
+  width: 30px;
+  transition: 0.3s ease-in-out;
+}
+
+.footer-socialmedia svg:hover {
+  fill: #E30613;
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@media (max-width: 995px) {
+  .logoband {
+    width: 100%;
+  }
+
+  .band {
+    width: 100%;
+  }
+}
 /* Override Mobile CSS with Desktop css at bottom of file */
 @media (min-width: 768px) {
   .app {
@@ -185,7 +347,9 @@ footer {
     position: relative;
     display: flex;
     flex-direction: column;
-    background-image: url(/src/assets/images/bg-sidebar-desktop.svg);
+    background: linear-gradient(300deg,rgb(166, 3, 3),rgb(0, 0, 0),rgb(85, 1, 1));
+    background-size: 180% 180%;
+    animation: gradient-animation 18s ease infinite;
     width: 16rem;
     height: 32rem;
     justify-content: flex-start;
@@ -211,5 +375,35 @@ footer {
     min-width: 8rem;
     min-height: 10rem;
     justify-content: space-around;
+  }
+}
+
+@media (max-width: 425px) {
+  .logos-firstviewport {
+    font-size: 20px;
+  }
+
+  .blackeyedpeas-wrapper .info-text h2 {
+    font-size: 1.3em;
+  }
+
+  .logosheader img {
+    width: 150px;
+  }
+
+  .areas-title {
+    font-size: 1em;
+  }
+
+  .areas {
+    font-size: 1.5em;
+  }
+
+  .get-register {
+    font-size: 1em;
+  }
+
+  .get-register span {
+    font-size: 12px;
   }
 }
