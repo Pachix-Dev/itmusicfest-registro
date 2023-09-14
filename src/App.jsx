@@ -83,9 +83,6 @@ function App () {
               3 DE OCTUBRE
             </div>
           </div>
-
-        </Container>
-        <Container fluid className='pt-5 mt-5'>
           <Row className='mt-5'>
             <Col className='my-auto'>
               <img src='/djinvitado.png' alt='ITM MUSIC FEST' className='w-100' />

@@ -5,14 +5,21 @@
  * @param {HTMLInputElement} args
  * @returns Input Component
  */
-export const Select = ({ label, error, options, ...args }) => {
+export const SelectEstados = ({ label, error, estados, ...args }) => {
   return (
     <>
       <label className='flex-between mt-3'>
         {label}
         {error && <span className='text-red font-medium'>{error}</span>}
       </label>
-      <select className={error ? 'border-red' : ''} {...args} dangerouslySetInnerHTML={{ __html: options }} />
+      <select className={error ? 'border-red' : ''} {...args}>
+        <option value=''>Selecciona una opción</option>
+        {Object.keys(estados).map((estado) => (
+          <option key={estado} value={estado}>
+            {estado}
+          </option>
+        ))}
+      </select>
     </>
   )
 }

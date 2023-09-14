@@ -10,7 +10,7 @@ export const DesktopLayout = () => {
   return (
     <div className='desktop-only desktop-app bg-white p-1 rounded '>
       <StepsSidebar />
-      <div className='relative rounded max-w-30'>
+      <div className='relative rounded'>
         <StepForm />
       </div>
     </div>

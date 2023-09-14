@@ -8,7 +8,7 @@
 export const Input = ({ label, error, ...args }) => {
   return (
     <>
-      <label className='flex-between'>
+      <label className='flex-between mt-3'>
         {label}
         {error && <span className='text-red font-medium'>{error}</span>}
       </label>

@@ -39,7 +39,7 @@ export const Footer = () => {
 
   if (currentStep <= 4) {
     return (
-      <footer className='footer-form absolute pr-2'>
+      <footer className='footer-form pr-2'>
         <SubmitButton
           stepNo={currentStep}
           onNextStep={onNextStep}

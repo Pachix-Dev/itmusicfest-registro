@@ -3,7 +3,7 @@
   top: 0;
   box-sizing: border-box;
   height: 10rem;
-  width: 100vw;
+  width: auto;
   background: linear-gradient(300deg,deepskyblue,darkviolet,blue);
   background-size: 180% 180%;
   animation: gradient-animation 18s ease infinite;
@@ -67,7 +67,7 @@ input:hover {
 }
 
 .footer-form {
-  position: fixed;
+  position: relative;
   box-sizing: border-box;
   bottom: 0;
   width: 100%;
@@ -351,7 +351,7 @@ input:hover {
     background-size: 180% 180%;
     animation: gradient-animation 18s ease infinite;
     width: 16rem;
-    height: 32rem;
+    height: auto;
     justify-content: flex-start;
     border-radius: 8px;
   }
