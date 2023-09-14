@@ -98,10 +98,10 @@ export function Step1Form () {
             onChange={(e) => handleTextChange(e)}
             value={formState.sexo}
             options="
-          <option value=''>Selecciona una opción</option>
-          <option value='masculino'>masculino</option>
-          <option value='femenimo'>femenimo</option>
-          "
+            <option value=''>Selecciona una opción</option>
+            <option value='masculino'>masculino</option>
+            <option value='femenimo'>femenimo</option>
+            "
           />
         </Col>
         <Col>
@@ -113,12 +113,12 @@ export function Step1Form () {
             onChange={(e) => handleTextChange(e)}
             value={formState.rangoEdad}
             options="
-          <option value=''>Selecciona una opción</option>
-          <option value='menor a 25 años'>menor a 25 años</option>
-          <option value='entre 25 y 40 años'>entre 25 y 40 años</option>
-          <option value='entre 40 y 60 años'>entre 40 y 60 años</option>
-          <option value='más de 60 años'>más de 60 años</option>
-          "
+            <option value=''>Selecciona una opción</option>
+            <option value='menor a 25 años'>menor a 25 años</option>
+            <option value='entre 25 y 40 años'>entre 25 y 40 años</option>
+            <option value='entre 40 y 60 años'>entre 40 y 60 años</option>
+            <option value='más de 60 años'>más de 60 años</option>
+            "
           />
         </Col>
       </Row>

@@ -4,7 +4,7 @@
   box-sizing: border-box;
   height: 10rem;
   width: auto;
-  background: linear-gradient(300deg,deepskyblue,darkviolet,blue);
+  background: linear-gradient(300deg, deepskyblue, darkviolet, blue);
   background-size: 180% 180%;
   animation: gradient-animation 18s ease infinite;
   display: flex;
@@ -63,7 +63,7 @@ input:hover {
   background-color: inherit;
   border: none;
   color: var(--color-cool-gray);
-  font-weight: 600;
+  font-weight: bold;
 }
 
 .footer-form {
@@ -113,7 +113,7 @@ input:hover {
 
 /* //////////////////////// */
 
-#select-plan-id input[type="radio"]:checked + div {
+#select-plan-id input[type="radio"]:checked+div {
   background-color: var(--color-magnolia);
   border: 1px solid var(--color-purplish-blue);
 }
@@ -313,9 +313,11 @@ input:hover {
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -330,6 +332,7 @@ input:hover {
     width: 100%;
   }
 }
+
 /* Override Mobile CSS with Desktop css at bottom of file */
 @media (min-width: 768px) {
   .app {
@@ -347,7 +350,7 @@ input:hover {
     position: relative;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(300deg,rgb(166, 3, 3),rgb(0, 0, 0),rgb(85, 1, 1));
+    background: linear-gradient(300deg, rgb(166, 3, 3), rgb(0, 0, 0), rgb(85, 1, 1));
     background-size: 180% 180%;
     animation: gradient-animation 18s ease infinite;
     width: 16rem;

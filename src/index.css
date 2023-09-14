@@ -23,10 +23,11 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: var(--color-marine-blue);;
+  color: var(--color-marine-blue);
+  ;
   background-color: var(--color-light-gray);
 
-  
+
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -54,7 +55,8 @@ p {
   color: var(--color-cool-gray);
 }
 
-p, label {
+p,
+label {
   font-size: 15px;
 }
 
@@ -65,9 +67,11 @@ button {
   font-weight: 400;
   font-family: inherit;
   background-color: var(--color-marine-blue);
+  color: white;
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   box-shadow: 0 1rem 10rem #00000033;
   background-color: var(--color-white);
@@ -79,9 +83,11 @@ button:hover {
     color: var(--color-marine-blue);
     background-color: var(--color-light-gray);
   }
+
   a:hover {
     color: var(--color-marine-blue);
   }
+
   button {
     background-color: var(--color-marine-blue);
   }
@@ -212,4 +218,3 @@ button:hover {
     display: inherit;
   }
 }
-  

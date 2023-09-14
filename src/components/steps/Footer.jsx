@@ -29,7 +29,7 @@ export const Footer = () => {
     const { errors, hasError } = onValidate(currentStep, formState)
     updateError(errors) // will update or clear errors
     if (!hasError) {
-      setStep(Math.min(currentStep + 1, 5))
+      setStep(Math.min(currentStep + 1, 4))
     }
   }
 
@@ -37,7 +37,7 @@ export const Footer = () => {
     setStep(Math.max(currentStep - 1, 1))
   }
 
-  if (currentStep <= 4) {
+  if (currentStep <= 3) {
     return (
       <footer className='footer-form pr-2'>
         <SubmitButton

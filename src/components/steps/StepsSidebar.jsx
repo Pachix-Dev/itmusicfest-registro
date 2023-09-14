@@ -3,23 +3,23 @@ import { useForm } from '../../state/FormContext'
 const STEPS = {
   step1: {
     number: 1,
-    title: 'STEP 1',
-    description: 'YOUR INFO'
+    title: 'Paso 1',
+    description: 'Tu información'
   },
   step2: {
     number: 2,
-    title: 'STEP 2',
-    description: 'SELECT PLAN'
+    title: 'Paso 2',
+    description: 'Empresa / Institución'
   },
   step3: {
     number: 3,
-    title: 'STEP 3',
-    description: 'ADD-ONS'
+    title: 'Paso 3',
+    description: 'Encuesta'
   },
   step4: {
     number: 4,
-    title: 'STEP 4',
-    description: 'SUMMARY'
+    title: 'Paso 4',
+    description: 'Completado'
   }
 }
 

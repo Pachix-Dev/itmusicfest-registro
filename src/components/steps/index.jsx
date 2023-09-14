@@ -3,7 +3,6 @@ import { useForm } from '../../state/FormContext'
 import { Step1Form } from './Step1Form'
 import { Step2Form } from './Step2Form'
 import { Step3Form } from './Step3Form'
-import { Step4Form } from './Step4Form'
 import { Step5Form } from './Step5Form'
 import { Footer } from './Footer'
 
@@ -21,8 +20,6 @@ function getStepform (step = 1) {
     case 3:
       return Step3Form
     case 4:
-      return Step4Form
-    case 5:
       return Step5Form
     default:
       return Step1Form
@@ -33,7 +30,6 @@ export const StepForm = () => {
   const formState = useForm()
   const step = formState.currentStep
   const StepForm = getStepform(step)
-  console.log(formState)
   return (
     <>
       <StepForm />

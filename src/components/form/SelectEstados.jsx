@@ -12,7 +12,7 @@ export const SelectEstados = ({ label, error, estados, ...args }) => {
         {label}
         {error && <span className='text-red font-medium'>{error}</span>}
       </label>
-      <select className={error ? 'border-red' : ''} {...args}>
+      <select className={error ? 'border-red form-select' : 'form-select'} {...args}>
         <option value=''>Selecciona una opción</option>
         {Object.keys(estados).map((estado) => (
           <option key={estado} value={estado}>

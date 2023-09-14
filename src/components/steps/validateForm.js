@@ -55,20 +55,31 @@ const onValidateStep1 = (formState) => {
 }
 
 const onValidateStep2 = (formState) => {
-  const { empresa, industria, cargo, pais, calleNumero, codigoPostal, colonia, municipio, ciudad, estado } = formState
+  const { empresa, industria, cargo, pais, estado, municipio, calleNumero, codigoPostal, colonia, ciudad } = formState
 
-  const errors = {
-    empresa: '',
-    industria: '',
-    cargo: '',
-    pais: '',
-    calleNumero: '',
-    codigoPostal: '',
-    colonia: '',
-    municipio: '',
-    ciudad: '',
-    estado: ''
-  }
+  const errors = pais === 'Mexico'
+    ? {
+        empresa: '',
+        industria: '',
+        cargo: '',
+        pais: '',
+        calleNumero: '',
+        codigoPostal: '',
+        colonia: '',
+        ciudad: '',
+        estado: '',
+        municipio: ''
+      }
+    : {
+        empresa: '',
+        industria: '',
+        cargo: '',
+        pais: '',
+        calleNumero: '',
+        codigoPostal: '',
+        colonia: '',
+        ciudad: ''
+      }
 
   if (empresa.length === 0) {
     errors.empresa = defaultError
@@ -86,40 +97,38 @@ const onValidateStep2 = (formState) => {
     errors.pais = defaultError
   }
 
-  if (calleNumero.length === 0) {
-    errors.calleNumero = defaultError
+  if (pais === 'Mexico') {
+    if (estado.length === 0) {
+      errors.estado = defaultError
+    }
+
+    if (municipio.length === 0) {
+      errors.municipio = defaultError
+    }
   }
 
-  if (codigoPostal.length === 0) {
-    errors.codigoPostal = defaultError
+  if (calleNumero.length === 0) {
+    errors.calleNumero = defaultError
   }
 
   if (colonia.length === 0) {
     errors.colonia = defaultError
   }
 
-  if (municipio.length === 0) {
-    errors.municipio = defaultError
+  if (codigoPostal.length === 0) {
+    errors.codigoPostal = defaultError
   }
 
   if (ciudad.length === 0) {
     errors.ciudad = defaultError
   }
 
-  if (ciudad.length === 0) {
-    errors.ciudad = defaultError
-  }
-
-  if (estado.length === 0) {
-    errors.estado = defaultError
-  }
-
-  const hasError = !!errors.empresa || !!errors.industria || !!errors.cargo || !!errors.pais || !!errors.calleNumero || !!errors.codigoPostal || !!errors.colonia || !!errors.municipio || !!errors.ciudad || !!errors.estado
+  const hasError = !!errors.empresa || !!errors.industria || !!errors.cargo || !!errors.pais || !!errors.calleNumero || !!errors.codigoPostal || !!errors.colonia || !!errors.ciudad || !!errors.estado || !!errors.municipio
   return { errors, hasError }
 }
 
 const onValidateStep3 = (formState) => {
-  const { name, phone } = formState
+  const { comoTeEnteraste, productoInteres, nivelInfluencia, serExpositor } = formState
 
   const errors = {
     comoTeEnteraste: '',
@@ -128,15 +137,23 @@ const onValidateStep3 = (formState) => {
     serExpositor: ''
   }
 
-  if (phone.length === 0) {
-    errors.phone = defaultError
+  if (comoTeEnteraste.length === 0) {
+    errors.comoTeEnteraste = defaultError
   }
 
-  if (name.length === 0) {
-    errors.name = defaultError
+  if (productoInteres.length === 0) {
+    errors.productoInteres = defaultError
   }
 
-  const hasError = !!errors.name || !!errors.phone
+  if (nivelInfluencia.length === 0) {
+    errors.nivelInfluencia = defaultError
+  }
+
+  if (serExpositor.length === 0) {
+    errors.serExpositor = defaultError
+  }
+
+  const hasError = !!errors.comoTeEnteraste || !!errors.productoInteres || !!errors.nivelInfluencia || !!errors.serExpositor
   return { errors, hasError }
 }
 

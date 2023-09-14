@@ -1,23 +1,23 @@
 import { REDUCER_ACTIONS, useForm, useFormDispatch } from '../../state/FormContext'
 
 import { Input } from '../form/Input'
-import { Col, Form, Row } from 'react-bootstrap'
+import { Col, Row } from 'react-bootstrap'
 import { Select } from '../form/Select'
 import { useState } from 'react'
 import { estados } from './statesMunicipalities'
 import { SelectEstados } from '../form/SelectEstados'
+import { SelectMunicipios } from '../form/SelectMunicipios'
 
 export function Step2Form () {
   const formState = useForm()
   const dispatch = useFormDispatch()
 
-  const [estadoSeleccionado, setEstadoSeleccionado] = useState('')
-  const [municipioSeleccionado, setMunicipioSeleccionado] = useState('')
+  const [estadoSeleccionado, setEstadoSeleccionado] = useState(formState.estado)
 
   const handleEstadoChange = (event) => {
     const estado = event.target.value
     setEstadoSeleccionado(estado)
-    setMunicipioSeleccionado('')
+
     dispatch({
       type: REDUCER_ACTIONS.UPDATE_INPUT,
       field: event.target.name,
@@ -26,7 +26,6 @@ export function Step2Form () {
   }
 
   const handleMunicipioChange = (event) => {
-    setMunicipioSeleccionado(event.target.value)
     dispatch({
       type: REDUCER_ACTIONS.UPDATE_INPUT,
       field: event.target.name,
@@ -385,70 +384,41 @@ export function Step2Form () {
         </Col>
       </Row>
       <Row>
+        {formState.pais === 'Mexico' &&
+          <>
+            <Col>
+              <SelectEstados
+                label='Estado'
+                error={formState.errors.estado}
+                type='text'
+                name='estado'
+                onChange={(e) => handleEstadoChange(e)}
+                value={formState.estado}
+                estados={estados}
+              />
+            </Col>
+            <Col>
+              <SelectMunicipios
+                label='Municipio'
+                error={formState.errors.municipio}
+                type='text'
+                name='municipio'
+                onChange={(e) => handleMunicipioChange(e)}
+                value={formState.municipio}
+                municipios={estadoSeleccionado && municipios}
+              />
+            </Col>
+          </>}
         <Col>
-          <Form.Group className='mb-3' controlId='formEstado'>
-            <Form.Label>Selecciona un estado:</Form.Label>
-            <Form.Select
-              onChange={handleEstadoChange}
-              value={estadoSeleccionado}
-              name='estado'
-              required
-            >
-              <option value=''>-- Selecciona --</option>
-              {Object.keys(estados).map((estado) => (
-                <option key={estado} value={estado}>
-                  {estado}
-                </option>
-              ))}
-            </Form.Select>
-          </Form.Group>
-          <Form.Group className='mb-3' controlId='formMunicipio'>
-            <Form.Label>Municipio</Form.Label>
-            {estadoSeleccionado && (
-              <>
-                <Form.Label>Selecciona un municipio:</Form.Label>
-                <Form.Select
-                  onChange={handleMunicipioChange}
-                  value={municipioSeleccionado}
-                  name='municipio'
-                  required
-                >
-                  <option value=''>-- Selecciona --</option>
-                  {municipios.map((municipio, index) => (
-                    <option key={index} value={municipio}>
-                      {municipio}
-                    </option>
-                  ))}
-                </Form.Select>
-              </>
-            )}
-          </Form.Group>
-
-          <SelectEstados
-            label='Estado'
-            error={formState.errors.sexo}
+          <Input
+            label='Ciudad'
+            error={formState.errors.ciudad}
             type='text'
-            name='sexo'
+            name='ciudad'
+            placeholder='e.g. León'
             onChange={(e) => handleTextChange(e)}
-            value={formState.sexo}
-            estados={estados}
-          />
-        </Col>
-        <Col>
-          <Select
-            label='Municipio'
-            error={formState.errors.rangoEdad}
-            type='text'
-            name='rangoEdad'
-            onChange={(e) => handleTextChange(e)}
-            value={formState.rangoEdad}
-            options="
-            <option value=''>Selecciona una opción</option>
-            <option value='menor a 25 años'>menor a 25 años</option>
-            <option value='entre 25 y 40 años'>entre 25 y 40 años</option>
-            <option value='entre 40 y 60 años'>entre 40 y 60 años</option>
-            <option value='más de 60 años'>más de 60 años</option>
-          "
+            value={formState.ciudad}
+            autoComplete='off'
           />
         </Col>
       </Row>
@@ -456,36 +426,37 @@ export function Step2Form () {
         <Col>
           <Input
             label='Calle y numero'
-            error={formState.errors.phone}
+            error={formState.errors.calleNumero}
             type='text'
-            name='phone'
+            name='calleNumero'
             placeholder='e.g. calle 123'
             onChange={(e) => handleTextChange(e)}
-            value={formState.phone}
+            value={formState.calleNumero}
             autoComplete='off'
           />
         </Col>
         <Col>
           <Input
             label='Colonia'
-            error={formState.errors.phone}
+            error={formState.errors.colonia}
             type='text'
-            name='phone'
+            name='colonia'
             placeholder='e.g. Lomas del campestre'
             onChange={(e) => handleTextChange(e)}
-            value={formState.phone}
+            value={formState.colonia}
             autoComplete='off'
           />
         </Col>
         <Col>
+
           <Input
-            label='Ciudad'
-            error={formState.errors.phone}
+            label='Codigo postal'
+            error={formState.errors.codigoPostal}
             type='text'
-            name='phone'
-            placeholder='e.g. León'
+            name='codigoPostal'
+            placeholder='e.g. 37000'
             onChange={(e) => handleTextChange(e)}
-            value={formState.phone}
+            value={formState.codigoPostal}
             autoComplete='off'
           />
         </Col>

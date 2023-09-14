@@ -12,7 +12,7 @@ export const Select = ({ label, error, options, ...args }) => {
         {label}
         {error && <span className='text-red font-medium'>{error}</span>}
       </label>
-      <select className={error ? 'border-red' : ''} {...args} dangerouslySetInnerHTML={{ __html: options }} />
+      <select className={error ? 'border-red form-select' : 'form-select'} {...args} dangerouslySetInnerHTML={{ __html: options }} />
     </>
   )
 }
