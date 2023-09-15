@@ -2,25 +2,51 @@ import mysql from 'mysql2/promise'
 
 const config = {
   host: 'localhost',
-  user: 'bitnami',
-  password: 'KB:BQJ1AMhI.',
+  user: 'root',
+  // password: 'KB:BQJ1AMhI.',
+  password: '',
   database: 'db_itmusicfest'
 }
 
 const connection = await mysql.createConnection(config)
 
-connection.query('SELECT * FROM registro')
-
 export class RegisterModel {
-  static async getAll ({ data }) {
+  static async getAll () {
     const [result] = await connection.query('SELECT * FROM registro')
-
-    console.log(result)
+    return result
   }
 
-  static async create ({ data }) {
-    const [registers] = await connection.query('INSERT INTO registro SET ?', data)
-    console.log(registers)
+  static async create ({
+    name,
+    apellidoPaterno,
+    apellidoMaterno,
+    sexo,
+    rangoEdad,
+    email,
+    phone,
+    typeRegister,
+    linkedin,
+    facebook,
+    instagram,
+    tiktok,
+    empresa,
+    industria,
+    cargo,
+    pais,
+    calleNumero,
+    codigoPostal,
+    colonia,
+    municipio,
+    ciudad,
+    estado,
+    paginaWeb,
+    phoneEmpresa,
+    comoTeEnteraste,
+    productoInteres,
+    nivelInfluencia,
+    serExpositor
+  }) {
+    const [registers] = await connection.query('INSERT INTO registro (name, apellidoPaterno, apellidoMaterno, sexo, rangoEdad, email, phone, typeRegister, linkedin, facebook, instagram, tiktok, empresa, industria, cargo, pais, calleNumero, codigoPostal, colonia, municipio, ciudad, estado, paginaWeb, phoneEmpresa, comoTeEnteraste, productoInteres, nivelInfluencia, serExpositor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [name, apellidoPaterno, apellidoMaterno, sexo, rangoEdad, email, phone, typeRegister, linkedin, facebook, instagram, tiktok, empresa, industria, cargo, pais, calleNumero, codigoPostal, colonia, municipio, ciudad, estado, paginaWeb, phoneEmpresa, comoTeEnteraste, productoInteres, nivelInfluencia, serExpositor])
     return registers
   }
 }

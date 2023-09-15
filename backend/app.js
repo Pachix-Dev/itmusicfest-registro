@@ -1,18 +1,92 @@
-import express, { json } from 'express' // require -> commonJS
-import { createRegisterRouter } from './routes/register.js'
-import { corsMiddleware } from './middlewares/cors.js'
+import express, { json } from 'express'
 
 import { RegisterModel } from './models/mysql/registro.js'
+import cors from 'cors'
 
 const app = express()
+
 app.use(json())
-app.use(corsMiddleware())
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      const ACCEPTED_ORIGINS = [
+        'http://localhost:5173',
+        'http://localhost:1234'
+      ]
+
+      if (ACCEPTED_ORIGINS.includes(origin)) {
+        return callback(null, true)
+      }
+
+      if (!origin) {
+        return callback(null, true)
+      }
+
+      return callback(new Error('Not allowed by CORS'))
+    }
+  })
+)
+
 app.disable('x-powered-by')
 
-app.use('/register', createRegisterRouter({ RegisterModel }))
+app.get('/register', async (request, response) => {
+  try {
+    const registers = await RegisterModel.getAll()
+    response.status(200).json(registers)
+  } catch (error) {
+    console.error(error)
+    response.status(500).json({ message: 'Error al obtener registros' })
+  }
+})
 
-const PORT = process.env.PORT ?? 1234
+app.post('/register', async (request, response) => {
+  const {
+    name, apellidoPaterno, apellidoMaterno, sexo, rangoEdad, email, phone, typeRegister, linkedin, facebook,
+    instagram, tiktok, empresa, industria, cargo, pais, calleNumero, codigoPostal, colonia, municipio, ciudad, estado,
+    paginaWeb, phoneEmpresa, comoTeEnteraste, productoInteres, nivelInfluencia, serExpositor
+  } = request.body
+
+  try {
+    await RegisterModel.create({
+      name,
+      apellidoPaterno,
+      apellidoMaterno,
+      sexo,
+      rangoEdad,
+      email,
+      phone,
+      typeRegister,
+      linkedin,
+      facebook,
+      instagram,
+      tiktok,
+      empresa,
+      industria,
+      cargo,
+      pais,
+      calleNumero,
+      codigoPostal,
+      colonia,
+      municipio,
+      ciudad,
+      estado,
+      paginaWeb,
+      phoneEmpresa,
+      comoTeEnteraste,
+      productoInteres,
+      nivelInfluencia,
+      serExpositor
+    })
+    response.status(201).json({ message: 'Registro creado' })
+  } catch (error) {
+    console.error(error)
+    response.status(500).json({ message: 'Error al crear el registro' })
+  }
+})
+
+const PORT = process.env.PORT || 1234
 
 app.listen(PORT, () => {
-  console.log(`server listening on port http://localhost:${PORT}`)
+  console.log(`Server listening on port http://localhost:${PORT}`)
 })
