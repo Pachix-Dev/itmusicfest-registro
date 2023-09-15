@@ -1,0 +1,21 @@
+{
+  "name": "registro-itmusicfest",
+  "version": "1.0.0",
+  "description": "registro para evento de black eyed peas",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "author": "Fabian Yapura Claros",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "2.8.5",
+    "express": "4.18.2",
+    "mysql2": "3.6.1"
+  },
+  "devDependencies": {
+    "nodemon": "3.0.1"
+  }
+}

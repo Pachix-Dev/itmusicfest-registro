@@ -1,12 +1,18 @@
 import thankyouLogo from '../../assets/images/icon-thank-you.svg'
 import { useForm } from '../../state/FormContext'
+import axios from 'axios'
 
-export function Step5Form () {
+export async function Step5Form () {
   const formState = useForm()
+  console.log(formState)
 
-  const handleSubmit = (e) => {
-    console.log(formState)
+  try {
+    const { data } = await axios.post('http://3.133.150.190:1234/register', formState)
+    console.log(data)
+  } catch (e) {
+    console.log(e)
   }
+
   return (
     <div className='form-container column-flex-center gap-1'>
       <img className='thank-you-logo' src={thankyouLogo} alt='thank you logo' />
