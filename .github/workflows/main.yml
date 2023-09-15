@@ -1,0 +1,28 @@
+on:
+  push:
+    branches:
+      - main
+name: 🚀 Deploy website on push main branch
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest   
+    steps:      
+        - name: Checkout
+          uses: actions/checkout@v2
+          
+        - name: Install Dependencies
+          run: npm install
+          
+        - name: Build
+          run: npm run build
+
+        - name: deploy file to server
+          uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+          with:
+            username: '${{ secrets.SFTP_USERNAME }}'
+            server: '${{ secrets.SERVER }}'
+            ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+            local_path: './dist/*'
+            remote_path: '/opt/bitnami/nginx/html'
+            sftpArgs: '-o ConnectTimeout=5'
