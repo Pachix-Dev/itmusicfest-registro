@@ -11,6 +11,7 @@ app.use(
   cors({
     origin: (origin, callback) => {
       const ACCEPTED_ORIGINS = [
+        'http://localhost/',
         'http://localhost:5173',
         'http://localhost:1234'
       ]

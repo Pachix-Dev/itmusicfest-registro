@@ -3,8 +3,8 @@ import mysql from 'mysql2/promise'
 const config = {
   host: 'localhost',
   user: 'root',
-  // password: 'KB:BQJ1AMhI.',
-  password: '',
+  password: 'KB:BQJ1AMhI.',
+  // password: '',
   database: 'db_itmusicfest'
 }
 
