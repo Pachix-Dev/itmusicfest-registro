@@ -5,7 +5,8 @@ import { useForm } from '../../state/FormContext'
 
 export function Step5Form () {
   const formState = useForm()
-  const [confirmationData, setConfirmationData] = useState(null)
+  const [confirmationData, setConfirmationData] = useState(false)
+  const [message, setMessage] = useState('')
 
   useEffect(() => {
     const postData = async () => {
@@ -16,11 +17,16 @@ export function Step5Form () {
       }
 
       try {
-        const { data } = await axios.post('http://3.133.150.190:1234/register', formState, options)
+        setMessage('Enviando información...')
+        await axios.post('http://3.133.150.190:1234/register', formState, options)
         // const { data } = await axios.post('http://localhost:1234/register', formState, options)
         setConfirmationData(true)
-        console.log('Data:', data)
       } catch (error) {
+        if (error?.response?.data?.sqlState === '23000') {
+          setMessage('Ya te encuentras registrado...')
+        } else {
+          setMessage('No se pudo crear tu registro en este momento inténtalo mas tarde...')
+        }
         console.log('Error:', error)
       }
     }
@@ -43,7 +49,7 @@ export function Step5Form () {
           </>
           )
         : (
-          <p>Enviando información...</p>
+          <p>{message}</p>
           )}
     </div>
   )
