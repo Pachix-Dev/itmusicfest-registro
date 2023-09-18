@@ -2,6 +2,8 @@ import express, { json } from 'express'
 
 import { RegisterModel } from './models/mysql/registro.js'
 import cors from 'cors'
+import QRCode from 'qrcode'
+import { v4 as uuidv4 } from 'uuid'
 
 const app = express()
 
@@ -46,6 +48,14 @@ app.post('/register', async (request, response) => {
   } = request.body
 
   try {
+    const uuid = uuidv4()
+    QRCode.toFile(`./assets/qr/${uuid}.png`, uuid, {
+      errorCorrectionLevel: 'H'
+    }, function (err) {
+      if (err) throw err
+      console.log('QR code saved!')
+    })
+    const urlQR = `http://3.133.150.190/assets/qr/${uuid}.png`
     await RegisterModel.create({
       name,
       apellidoPaterno,
@@ -74,7 +84,9 @@ app.post('/register', async (request, response) => {
       comoTeEnteraste,
       productoInteres,
       nivelInfluencia,
-      serExpositor
+      serExpositor,
+      urlQR,
+      uuid
     })
     response.status(201).json({ message: 'Registro creado' })
   } catch (error) {
