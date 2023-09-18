@@ -91,7 +91,7 @@ app.post('/register', async (request, response) => {
     response.status(201).json({ message: 'Registro creado' })
   } catch (error) {
     console.error(error)
-    response.status(500).json({ message: 'Error al crear el registro' })
+    response.status(500).json({ message: 'Error al crear el registro', sqlState: error?.sqlState })
   }
 })
 
