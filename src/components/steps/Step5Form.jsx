@@ -23,7 +23,7 @@ export function Step5Form () {
         setConfirmationData(true)
       } catch (error) {
         if (error?.response?.data?.sqlState === '23000') {
-          setMessage('Ya te encuentras registrado...')
+          setMessage('Gracias por participar ya te encuentras registrado...')
         } else {
           setMessage('No se pudo crear tu registro en este momento inténtalo mas tarde...')
         }
