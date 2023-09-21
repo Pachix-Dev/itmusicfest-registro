@@ -187,6 +187,21 @@ export function Step1Form () {
           />
         </Col>
       </Row>
+      <h2 className='mt-5'>Datos de tu acompañante</h2>
+      <Row>
+        <Col md={6}>
+          <Input
+            label='Correo electrónico'
+            error={formState.errors.emailAcompanante}
+            type='email'
+            name='emailAcompanante'
+            placeholder='example@lorem.com'
+            onChange={(e) => handleTextChange(e)}
+            value={formState.emailAcompanante}
+            autoComplete='off'
+          />
+        </Col>
+      </Row>
     </div>
   )
 }

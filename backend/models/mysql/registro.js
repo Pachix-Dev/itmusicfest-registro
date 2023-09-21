@@ -49,12 +49,13 @@ export class RegisterModel {
     nivelInfluencia,
     serExpositor,
     urlQR,
-    uuid
+    uuid,
+    emailAcompanante
   }) {
     const connection = await mysql.createConnection(config)
     try {
       const [registers] = await connection.query(
-        'INSERT INTO registro (name, apellidoPaterno, apellidoMaterno, sexo, rangoEdad, email, phone, typeRegister, linkedin, facebook, instagram, tiktok, empresa, industria, cargo, pais, calleNumero, codigoPostal, colonia, municipio, ciudad, estado, paginaWeb, phoneEmpresa, comoTeEnteraste, productoInteres, nivelInfluencia, serExpositor, url_qr, qr_value) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        'INSERT INTO registro (name, apellidoPaterno, apellidoMaterno, sexo, rangoEdad, email, phone, typeRegister, linkedin, facebook, instagram, tiktok, empresa, industria, cargo, pais, calleNumero, codigoPostal, colonia, municipio, ciudad, estado, paginaWeb, phoneEmpresa, comoTeEnteraste, productoInteres, nivelInfluencia, serExpositor, url_qr, qr_value, emailAcompanante) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
         [
           name,
           apellidoPaterno,
@@ -85,7 +86,8 @@ export class RegisterModel {
           nivelInfluencia,
           serExpositor,
           urlQR,
-          uuid
+          uuid,
+          emailAcompanante
         ]
       )
       return registers

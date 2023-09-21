@@ -2,7 +2,7 @@ const emailRegExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z
 const defaultError = 'This field is required'
 
 const onValidateStep1 = (formState) => {
-  const { email, typeRegister, name, apellidoPaterno, apellidoMaterno, sexo, rangoEdad, phone } = formState
+  const { email, typeRegister, name, apellidoPaterno, apellidoMaterno, sexo, rangoEdad, phone, emailAcompanante } = formState
 
   const errors = {
     name: '',
@@ -12,7 +12,8 @@ const onValidateStep1 = (formState) => {
     rangoEdad: '',
     phone: '',
     email: '',
-    typeRegister: ''
+    typeRegister: '',
+    emailAcompanante: ''
   }
 
   if (name.length === 0) {
@@ -44,12 +45,17 @@ const onValidateStep1 = (formState) => {
   } else if (!emailRegExp.test(email)) {
     errors.email = 'Must enter a valid email'
   }
+  if (emailAcompanante.length === 0) {
+    errors.emailAcompanante = defaultError
+  } else if (!emailRegExp.test(emailAcompanante)) {
+    errors.emailAcompanante = 'Must enter a valid email'
+  }
 
   if (typeRegister.length === 0) {
     errors.typeRegister = defaultError
   }
 
-  const hasError = !!errors.name || !!errors.apellidoPaterno || !!errors.apellidoMaterno || !!errors.sexo || !!errors.rangoEdad || !!errors.phone || !!errors.email || !!errors.typeRegister
+  const hasError = !!errors.name || !!errors.apellidoPaterno || !!errors.apellidoMaterno || !!errors.sexo || !!errors.rangoEdad || !!errors.phone || !!errors.email || !!errors.typeRegister || !!errors.emailAcompanante
 
   return { errors, hasError }
 }

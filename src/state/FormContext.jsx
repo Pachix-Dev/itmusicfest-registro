@@ -50,6 +50,7 @@ const initialFormState = {
   productoInteres: '',
   nivelInfluencia: '',
   serExpositor: '',
+  emailAcompanante: '',
 
   errors: {
     name: undefined,
@@ -73,7 +74,8 @@ const initialFormState = {
     comoTeEnteraste: undefined,
     productoInteres: undefined,
     nivelInfluencia: undefined,
-    serExpositor: undefined
+    serExpositor: undefined,
+    emailAcompanante: undefined
   }
 }
 
