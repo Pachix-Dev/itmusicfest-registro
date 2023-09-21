@@ -88,7 +88,7 @@ function App () {
           </div>
         </div>
       </div>
-      {/* <div className='pt-5 register-wrapper'>
+      <div className='pt-5 register-wrapper'>
         <Container className='mb-5'>
           <p className='areas-title'><span>SI ERES DEL ÁREA:</span></p>
           <p className='areas'>TECNOLOGÍA MATEMÁTICAS CIENCIAS INGENIERÍA</p>
@@ -134,7 +134,7 @@ function App () {
 
           INDUSTRIAL TRANSFORMATION MEXICO
         </footer>
-      </div> */}
+      </div>
     </>
 
   )

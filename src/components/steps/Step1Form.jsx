@@ -101,7 +101,7 @@ export function Step1Form () {
             options="
             <option value=''>Selecciona una opción</option>
             <option value='masculino'>masculino</option>
-            <option value='femenimo'>femenimo</option>
+            <option value='femenimo'>femenino</option>
             "
           />
         </Col>

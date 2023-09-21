@@ -46,7 +46,7 @@ app.post('/register', async (req, res) => {
     })
     console.log('QR code saved!')
 
-    const urlQR = `http://3.133.150.190/qr/${uuid}.png`
+    const urlQR = `http://3.14.118.246/qr/${uuid}.png`
 
     await RegisterModel.create({ ...body, urlQR, uuid })
 

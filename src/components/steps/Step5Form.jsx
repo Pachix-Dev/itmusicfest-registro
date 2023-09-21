@@ -18,7 +18,7 @@ export function Step5Form () {
 
       try {
         setMessage('Enviando información...')
-        await axios.post('http://3.133.150.190:1234/register', formState, options)
+        await axios.post('http://3.14.118.246:1234/register', formState, options)
         // const { data } = await axios.post('http://localhost:1234/register', formState, options)
         setConfirmationData(true)
       } catch (error) {
