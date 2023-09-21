@@ -11,8 +11,8 @@ app.use(json())
 app.use(
   cors({
     origin: [
-      'http://3.133.150.190',
-      'http://3.133.150.190:1234',
+      'http://3.14.118.246',
+      'http://3.14.118.246:1234',
       'http://localhost:5173',
       'http://localhost:1234'
     ]

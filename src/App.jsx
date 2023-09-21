@@ -30,7 +30,7 @@ function App () {
             <div className='info-text text-light'>
               <p className='text-light fs-4 fw-bold m-0'>6 DE OCTUBRE 2023 | LEÓN, GUANAJUATO</p>
               <h1>SÍGUENOS EN REDES SOCIALES</h1>
-              <h4>Y ENTÉRATE COMO ASISTIR</h4>
+              <h4>Y ENTÉRATE CÓMO ASISTIR</h4>
               <p className='areas-title'><span>ITMUSICFEST.COM.MX</span></p>
               <div className='footer-socialmedia mb-2'>
                 <a href='https://www.facebook.com/Indtransmex/' target='_blank' rel='noreferrer'>
@@ -66,7 +66,7 @@ function App () {
               </Container>
               <Row className='mt-3 m-0'>
                 <Col xs sm md className='pt-3 my-auto'>
-                  <img src='/menteFactura.webp' alt='mente factura ' width={100} />
+                  <img src='/menteFactura.webp' alt='mente factura ' width={150} />
                 </Col>
                 <Col xs sm md className='pt-3 my-auto'>
                   <img src='/logofuturistic.webp' alt='mente factura ' width={100} />
@@ -78,7 +78,7 @@ function App () {
                   <img src='/logoIGECO.webp' alt='mente factura ' width={100} />
                 </Col>
                 <Col xs sm md className='pt-3 my-auto'>
-                  <img src='/logodeutschemesse.webp' alt='mente factura ' width={100} />
+                  <img src='/logodeutschemesse.webp' alt='mente factura ' width={150} />
                 </Col>
                 <Col xs sm md className='pt-3 my-auto'>
                   <img src='/logoexplora.webp' alt='mente factura ' width={100} />
