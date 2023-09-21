@@ -1,102 +1,62 @@
-import express, { json } from 'express'
-
-import { RegisterModel } from './models/mysql/registro.js'
+import express from 'express'
+import { json } from 'body-parser'
 import cors from 'cors'
 import QRCode from 'qrcode'
 import { v4 as uuidv4 } from 'uuid'
+import { RegisterModel } from './models/mysql/registro.js'
 
 const app = express()
-
 app.use(json())
-
 app.use(
   cors({
-    origin: (origin, callback) => {
-      const ACCEPTED_ORIGINS = [
-        'http://3.133.150.190',
-        'http://3.133.150.190:1234',
-        'http://localhost:5173',
-        'http://localhost:1234'
-      ]
-
-      if (ACCEPTED_ORIGINS.includes(origin) || !origin) {
-        callback(null, true)
-      } else {
-        callback(new Error('Not allowed by CORS'))
-      }
-    }
+    origin: [
+      'http://3.133.150.190',
+      'http://3.133.150.190:1234',
+      'http://localhost:5173',
+      'http://localhost:1234'
+    ]
   })
 )
-
 app.disable('x-powered-by')
 
-app.get('/register', async (request, response) => {
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack)
+  res.status(500).send('Something broke!')
+})
+
+app.get('/register', async (req, res) => {
   try {
     const registers = await RegisterModel.getAll()
-    response.status(200).json(registers)
+    res.status(200).json(registers)
   } catch (error) {
     console.error(error)
-    response.status(500).json({ message: 'Error al obtener registros' })
+    res.status(500).json({ message: 'Error al obtener registros' })
   }
 })
 
-app.post('/register', async (request, response) => {
-  const {
-    name, apellidoPaterno, apellidoMaterno, sexo, rangoEdad, email, phone, typeRegister, linkedin, facebook,
-    instagram, tiktok, empresa, industria, cargo, pais, calleNumero, codigoPostal, colonia, municipio, ciudad, estado,
-    paginaWeb, phoneEmpresa, comoTeEnteraste, productoInteres, nivelInfluencia, serExpositor
-  } = request.body
+app.post('/register', async (req, res) => {
+  const { body } = req
+  const uuid = uuidv4()
 
   try {
-    const uuid = uuidv4()
-    QRCode.toFile(`./assets/qr/${uuid}.png`, uuid, {
+    QRCode.toFile(`/opt/bitnami/nginx/html/qr/${uuid}.png`, uuid, {
       errorCorrectionLevel: 'H'
-    }, function (err) {
-      if (err) throw err
-      console.log('QR code saved!')
     })
-    const urlQR = `http://3.133.150.190/assets/qr/${uuid}.png`
-    await RegisterModel.create({
-      name,
-      apellidoPaterno,
-      apellidoMaterno,
-      sexo,
-      rangoEdad,
-      email,
-      phone,
-      typeRegister,
-      linkedin,
-      facebook,
-      instagram,
-      tiktok,
-      empresa,
-      industria,
-      cargo,
-      pais,
-      calleNumero,
-      codigoPostal,
-      colonia,
-      municipio,
-      ciudad,
-      estado,
-      paginaWeb,
-      phoneEmpresa,
-      comoTeEnteraste,
-      productoInteres,
-      nivelInfluencia,
-      serExpositor,
-      urlQR,
-      uuid
-    })
-    response.status(201).json({ message: 'Registro creado' })
+    console.log('QR code saved!')
+
+    const urlQR = `http://3.133.150.190/qr/${uuid}.png`
+
+    await RegisterModel.create({ ...body, urlQR, uuid })
+
+    res.status(201).json({ message: 'Registro creado' })
   } catch (error) {
     console.error(error)
-    response.status(500).json({ message: 'Error al crear el registro', sqlState: error?.sqlState })
+    res.status(500).json({ message: 'Error al crear el registro', sqlState: error?.sqlState })
   }
 })
 
 const PORT = process.env.PORT || 1234
-
 app.listen(PORT, () => {
   console.log(`Server listening on port http://localhost:${PORT}`)
 })

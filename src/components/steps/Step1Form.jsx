@@ -24,7 +24,7 @@ export function Step1Form () {
       <Row>
         <Col>
           <Input
-            label='Correo electrónico'
+            label='Correo electrónico institucional'
             error={formState.errors.email}
             type='email'
             name='email'
@@ -46,6 +46,7 @@ export function Step1Form () {
           <option value=''>Selecciona una opción</option>
           <option value='visitante'>VISITANTE</option>
           <option value='medio'>MEDIO</option>
+          <option value='estudiante'>ESTUDIANTE</option>
           "
           />
         </Col>

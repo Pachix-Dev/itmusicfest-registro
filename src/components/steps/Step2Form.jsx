@@ -45,7 +45,7 @@ export function Step2Form () {
 
   return (
     <div className='form-container'>
-      <h2>Información de empresa</h2>
+      <h2>Información de empresa / institución</h2>
       <p>Por favor proporciona la información a continuación: </p>
       <p className='min-height-1 mb-1'>
         {formState.errors.plan_id && (
@@ -57,7 +57,7 @@ export function Step2Form () {
       <Row>
         <Col>
           <Input
-            label='Nombre de la empresa'
+            label='Nombre de la empresa / institución'
             error={formState.errors.empresa}
             type='text'
             name='empresa'
@@ -68,54 +68,114 @@ export function Step2Form () {
           />
         </Col>
         <Col>
-          <Select
-            label='Idustria'
-            error={formState.errors.industria}
-            type='text'
-            name='industria'
-            onChange={(e) => handleTextChange(e)}
-            value={formState.industria}
-            options="
-            <option value=''>Selecciona una opción</option>
-            <option value='INGENIERIA'>INGENIERIA</option>
-            <option value='SECTOR EDUCATIVO'>SECTOR EDUCATIVO</option>
-            <option value='AUTOMOTRIZ'>AUTOMOTRIZ</option>
-            <option value='ELECTRICIDAD Y ELECTRÓNICA'>ELECTRICIDAD Y ELECTRÓNICA</option>
-            <option value='SISTEMAS INTEGRADORES'>SISTEMAS INTEGRADORES</option>
-            <option value='INDUSTRIA DE MAQUINARIA DE HERRAMIENTA'>INDUSTRIA DE MAQUINARIA DE HERRAMIENTA</option>
-            <option value='GOBIERNO'>GOBIERNO</option>
-            <option value='LOGÍSTICA Y CADENA DE SUMINISTROS'>LOGÍSTICA Y CADENA DE SUMINISTROS</option>
-            <option value='PROCESOS INDUSTRIALES (ACERO, PETRÓLEO Y QUÍMICO)'>PROCESOS INDUSTRIALES (ACERO, PETRÓLEO Y QUÍMICO)</option>
-            <option value='ALIMENTOS Y BEBIDAS'>ALIMENTOS Y BEBIDAS</option>
-            <option value='TELECOMUNICACIONES'>TELECOMUNICACIONES</option>
-            <option value='INGENIERÍA DE PLANTAS Y MECÁNICA'>INGENIERÍA DE PLANTAS Y MECÁNICA</option>
-            <option value='AEROESPACIAL'>AEROESPACIAL</option>
-            <option value='CUIDADO DE LA SALUD'>CUIDADO DE LA SALUD</option>
-            <option value='FACILIDADES E INFRAESTRUCTURA Y SOLUCIONES URBANAS'>FACILIDADES E INFRAESTRUCTURA Y SOLUCIONES URBANAS</option>
-            <option value='CÁMARAS Y ASOCIACIONES'>CÁMARAS Y ASOCIACIONES</option>
-            <option value='EMBALAJE'>EMBALAJE</option>
-            <option value='BIOTECNOLOGÍA Y FARMACÉUTICA'>BIOTECNOLOGÍA Y FARMACÉUTICA</option>
-            "
-          />
+          {
+            formState.typeRegister === 'visitante'
+              ? <Select
+                  label='Idustria'
+                  error={formState.errors.industria}
+                  type='text'
+                  name='industria'
+                  onChange={(e) => handleTextChange(e)}
+                  value={formState.industria}
+                  options="
+                        <option value=''>Selecciona una opción</option>
+                        <option value='INGENIERIA'>INGENIERIA</option>
+                        <option value='SECTOR EDUCATIVO'>SECTOR EDUCATIVO</option>
+                        <option value='AUTOMOTRIZ'>AUTOMOTRIZ</option>
+                        <option value='ELECTRICIDAD Y ELECTRÓNICA'>ELECTRICIDAD Y ELECTRÓNICA</option>
+                        <option value='SISTEMAS INTEGRADORES'>SISTEMAS INTEGRADORES</option>
+                        <option value='INDUSTRIA DE MAQUINARIA DE HERRAMIENTA'>INDUSTRIA DE MAQUINARIA DE HERRAMIENTA</option>
+                        <option value='GOBIERNO'>GOBIERNO</option>
+                        <option value='LOGÍSTICA Y CADENA DE SUMINISTROS'>LOGÍSTICA Y CADENA DE SUMINISTROS</option>
+                        <option value='PROCESOS INDUSTRIALES (ACERO, PETRÓLEO Y QUÍMICO)'>PROCESOS INDUSTRIALES (ACERO, PETRÓLEO Y QUÍMICO)</option>
+                        <option value='ALIMENTOS Y BEBIDAS'>ALIMENTOS Y BEBIDAS</option>
+                        <option value='TELECOMUNICACIONES'>TELECOMUNICACIONES</option>
+                        <option value='INGENIERÍA DE PLANTAS Y MECÁNICA'>INGENIERÍA DE PLANTAS Y MECÁNICA</option>
+                        <option value='AEROESPACIAL'>AEROESPACIAL</option>
+                        <option value='CUIDADO DE LA SALUD'>CUIDADO DE LA SALUD</option>
+                        <option value='FACILIDADES E INFRAESTRUCTURA Y SOLUCIONES URBANAS'>FACILIDADES E INFRAESTRUCTURA Y SOLUCIONES URBANAS</option>
+                        <option value='CÁMARAS Y ASOCIACIONES'>CÁMARAS Y ASOCIACIONES</option>
+                        <option value='EMBALAJE'>EMBALAJE</option>
+                        <option value='BIOTECNOLOGÍA Y FARMACÉUTICA'>BIOTECNOLOGÍA Y FARMACÉUTICA</option>
+                        "
+                />
+              : formState.typeRegister === 'estudiante'
+                ? <Select
+                    label='Nivel de estudios'
+                    error={formState.errors.industria}
+                    type='text'
+                    name='industria'
+                    onChange={(e) => handleTextChange(e)}
+                    value={formState.industria}
+                    options="
+                        <option value=''>Selecciona una opción</option>
+                        <option value='medio / medio superior'>MEDIO / MEDIO SUPERIOR</option>
+                        <option value='superior (licenciatura / ingenieria)'>superior (licenciatura / ingenieria)</option>
+                        <option value='posgrado'>POSGRADO</option>
+                        <option value='docente'>DOCENTE</option>
+                        <option value='directivo'>DIRECTIVO</option>
+                        <option value='carrera técnica'>CARRERA TÉCNICA</option>
+                        "
+                  />
+                : <Input
+                    label='Mercado Nicho'
+                    error={formState.errors.empresa}
+                    type='text'
+                    name='empresa'
+                    placeholder='e.g. Google'
+                    onChange={(e) => handleTextChange(e)}
+                    value={formState.empresa}
+                    autoComplete='off'
+                  />
+          }
         </Col>
       </Row>
       <Row>
         <Col>
-          <Select
-            label='Cargo'
-            error={formState.errors.cargo}
-            type='text'
-            name='cargo'
-            onChange={(e) => handleTextChange(e)}
-            value={formState.cargo}
-            options="
-            <option value=''>Selecciona una opción</option>
-            <option value='CEO / PRESIDENTE'>CEO / PRESIDENTE</option>
-            <option value='DIRECTOR / COORDINADOR DE AREA'>DIRECTOR / COORDINADOR DE AREA</option>
-            <option value='JEFE / GERENTE DE AREA'>JEFE / GERENTE DE AREA</option>
-            <option value='PERSONAL OPERATIVO'>PERSONAL OPERATIVO</option>
-            "
-          />
+          {
+            formState.typeRegister === 'visitante'
+              ? <Select
+                  label='Cargo'
+                  error={formState.errors.cargo}
+                  type='text'
+                  name='cargo'
+                  onChange={(e) => handleTextChange(e)}
+                  value={formState.cargo}
+                  options="
+              <option value=''>Selecciona una opción</option>
+              <option value='CEO / PRESIDENTE'>CEO / PRESIDENTE</option>
+              <option value='DIRECTOR / COORDINADOR DE AREA'>DIRECTOR / COORDINADOR DE AREA</option>
+              <option value='JEFE / GERENTE DE AREA'>JEFE / GERENTE DE AREA</option>
+              <option value='PERSONAL OPERATIVO'>PERSONAL OPERATIVO</option>
+              "
+                />
+              : formState.typeRegister === 'estudiante'
+                ? <Select
+                    label='Semestre que cursas'
+                    error={formState.errors.cargo}
+                    type='text'
+                    name='cargo'
+                    onChange={(e) => handleTextChange(e)}
+                    value={formState.cargo}
+                    options="
+                      <option value=''>Selecciona una opción</option>
+                      <option value='semestres que cursas'>SEMESTRES QUE CURSAS</option>
+                      <option value='semestres iniciales'>SEMESTRES INICIALES</option>
+                      <option value='semestres intermedios'>SEMESTRES INTERMEDIOS</option>
+                      <option value='semestres finales'>SEMESTRES FINALES</option>
+                      "
+                  />
+                : <Input
+                    label='Cargo'
+                    error={formState.errors.cargo}
+                    type='text'
+                    name='cargo'
+                    onChange={(e) => handleTextChange(e)}
+                    value={formState.cargo}
+                    autoComplete='off'
+                  />
+          }
+
         </Col>
         <Col>
           <Select
