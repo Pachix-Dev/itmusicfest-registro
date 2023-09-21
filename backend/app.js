@@ -1,10 +1,11 @@
 import express from 'express'
-import { json } from 'body-parser'
+import pkg from 'body-parser'
 import cors from 'cors'
 import QRCode from 'qrcode'
 import { v4 as uuidv4 } from 'uuid'
 import { RegisterModel } from './models/mysql/registro.js'
 
+const { json } = pkg
 const app = express()
 app.use(json())
 app.use(

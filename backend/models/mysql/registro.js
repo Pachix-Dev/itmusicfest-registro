@@ -11,9 +11,12 @@ const config = {
 export class RegisterModel {
   static async getAll () {
     const connection = await mysql.createConnection(config)
-    const [result] = await connection.query('SELECT * FROM registro')
-    await connection.end() // Close the connection
-    return result
+    try {
+      const [result] = await connection.query('SELECT * FROM registro')
+      return result
+    } finally {
+      await connection.end() // Close the connection
+    }
   }
 
   static async create ({
@@ -49,42 +52,45 @@ export class RegisterModel {
     uuid
   }) {
     const connection = await mysql.createConnection(config)
-    const [registers] = await connection.query(
-      'INSERT INTO registro (name, apellidoPaterno, apellidoMaterno, sexo, rangoEdad, email, phone, typeRegister, linkedin, facebook, instagram, tiktok, empresa, industria, cargo, pais, calleNumero, codigoPostal, colonia, municipio, ciudad, estado, paginaWeb, phoneEmpresa, comoTeEnteraste, productoInteres, nivelInfluencia, serExpositor, url_qr, qr_value) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-      [
-        name,
-        apellidoPaterno,
-        apellidoMaterno,
-        sexo,
-        rangoEdad,
-        email,
-        phone,
-        typeRegister,
-        linkedin,
-        facebook,
-        instagram,
-        tiktok,
-        empresa,
-        industria,
-        cargo,
-        pais,
-        calleNumero,
-        codigoPostal,
-        colonia,
-        municipio,
-        ciudad,
-        estado,
-        paginaWeb,
-        phoneEmpresa,
-        comoTeEnteraste,
-        productoInteres,
-        nivelInfluencia,
-        serExpositor,
-        urlQR,
-        uuid
-      ]
-    )
-    await connection.end() // Close the connection
-    return registers
+    try {
+      const [registers] = await connection.query(
+        'INSERT INTO registro (name, apellidoPaterno, apellidoMaterno, sexo, rangoEdad, email, phone, typeRegister, linkedin, facebook, instagram, tiktok, empresa, industria, cargo, pais, calleNumero, codigoPostal, colonia, municipio, ciudad, estado, paginaWeb, phoneEmpresa, comoTeEnteraste, productoInteres, nivelInfluencia, serExpositor, url_qr, qr_value) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        [
+          name,
+          apellidoPaterno,
+          apellidoMaterno,
+          sexo,
+          rangoEdad,
+          email,
+          phone,
+          typeRegister,
+          linkedin,
+          facebook,
+          instagram,
+          tiktok,
+          empresa,
+          industria,
+          cargo,
+          pais,
+          calleNumero,
+          codigoPostal,
+          colonia,
+          municipio,
+          ciudad,
+          estado,
+          paginaWeb,
+          phoneEmpresa,
+          comoTeEnteraste,
+          productoInteres,
+          nivelInfluencia,
+          serExpositor,
+          urlQR,
+          uuid
+        ]
+      )
+      return registers
+    } finally {
+      await connection.end() // Close the connection
+    }
   }
 }

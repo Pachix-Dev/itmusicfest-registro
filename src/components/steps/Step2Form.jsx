@@ -121,7 +121,7 @@ export function Step2Form () {
                     label='Mercado Nicho'
                     error={formState.errors.empresa}
                     type='text'
-                    name='empresa'
+                    name='industria'
                     placeholder='e.g. Google'
                     onChange={(e) => handleTextChange(e)}
                     value={formState.empresa}
