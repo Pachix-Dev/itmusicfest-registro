@@ -119,12 +119,12 @@ export function Step2Form () {
                   />
                 : <Input
                     label='Mercado Nicho'
-                    error={formState.errors.empresa}
+                    error={formState.errors.industria}
                     type='text'
                     name='industria'
                     placeholder='e.g. Google'
                     onChange={(e) => handleTextChange(e)}
-                    value={formState.empresa}
+                    value={formState.industria}
                     autoComplete='off'
                   />
           }
@@ -525,24 +525,24 @@ export function Step2Form () {
         <Col>
           <Input
             label='Página web'
-            error={formState.errors.instagram}
+            error={formState.errors.paginaWeb}
             type='text'
-            name='instagram'
+            name='paginaWeb'
             placeholder='e.g. https://miempresa.com'
             onChange={(e) => handleTextChange(e)}
-            value={formState.instagram}
+            value={formState.paginaWeb}
             autoComplete='off'
           />
         </Col>
         <Col>
           <Input
             label='Número de teléfono de la empresa'
-            error={formState.errors.tiktok}
+            error={formState.errors.phoneEmpresa}
             type='text'
-            name='tiktok'
+            name='phoneEmpresa'
             placeholder='e.g. 4771234567 ext 123'
             onChange={(e) => handleTextChange(e)}
-            value={formState.tiktok}
+            value={formState.phoneEmpresa}
             autoComplete='off'
           />
         </Col>
