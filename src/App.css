@@ -178,7 +178,8 @@ input:hover {
 
 .itmusicfest-wrapper {
   background-image: url('/bgmusicfest.webp');
-  background-size: cover;
+  background-size: cover; 
+  background-position: right; 
 }
 
 .logos-firstviewport {
@@ -194,29 +195,33 @@ input:hover {
   position: relative;
   margin-top: -10%;
 }
-
+.bg-blackeyedpeas{
+  background: linear-gradient(to top,black,transparent);  
+}
 .blackeyedpeas-wrapper {
   position: relative;
-  text-align: center;
+  text-align: center;  
 }
+
 
 .blackeyedpeas-wrapper .info-text {
   position: absolute;
   bottom: 0;
   text-align: center;
   width: 100%;
+  background: linear-gradient(to top,black 20%,transparent);
+  text-shadow: 4px 4px 4px black;
 }
 
 .blackeyedpeas-wrapper .info-text h1 {
-  color: #E30613;
+  color: white;
   font-weight: bold;
   line-height: 0.9;
 }
 
-.blackeyedpeas-wrapper .info-text h2 {
+.blackeyedpeas-wrapper .info-text h4 {
   color: white;
-  font-weight: bold;
-  font-size: 2em;
+  font-weight: bold;  
   margin: 0;
   line-height: 1;
 }
@@ -236,7 +241,7 @@ input:hover {
   color: white;
   text-align: center;
   font-weight: bold;
-  font-size: 2em;
+  font-size: 1em;
   margin: 0;
   padding: 20px;
 }
@@ -385,7 +390,9 @@ input:hover {
   .logos-firstviewport {
     font-size: 20px;
   }
-
+  .blackeyedpeas-wrapper .info-text{
+    position: relative;
+  }
   .blackeyedpeas-wrapper .info-text h2 {
     font-size: 1.3em;
   }
