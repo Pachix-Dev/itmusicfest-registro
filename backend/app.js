@@ -14,7 +14,11 @@ app.use(
       'http://3.14.118.246',
       'http://3.14.118.246:1234',
       'http://localhost:5173',
-      'http://localhost:1234'
+      'http://localhost:1234',
+      'https://itmusicfest.com.mx',
+      'https://www.itmusicfest.com.mx',
+      'https://itmusicfest.com.mx:1234',
+      'https://www.itmusicfest.com.mx:1234'
     ]
   })
 )
@@ -46,7 +50,7 @@ app.post('/register', async (req, res) => {
     })
     console.log('QR code saved!')
 
-    const urlQR = `http://3.14.118.246/qr/${uuid}.png`
+    const urlQR = `https://itmusicfest.com.mx/qr/${uuid}.png`
 
     await RegisterModel.create({ ...body, urlQR, uuid })
 
